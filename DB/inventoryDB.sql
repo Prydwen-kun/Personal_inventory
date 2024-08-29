@@ -1,0 +1,41 @@
+CREATE TABLE `user` (
+	`u_id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+	`login` VARCHAR(255) NOT NULL UNIQUE,
+	`pwd_hash` VARCHAR(255) NOT NULL,
+	`user_name` VARCHAR(255) NOT NULL,
+	PRIMARY KEY(`u_id`)
+);
+
+
+CREATE TABLE `item` (
+	`item_id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+	`item_type` INTEGER NOT NULL,
+	`item_name` VARCHAR(255) NOT NULL,
+	`date_ajout` DATETIME NOT NULL,
+	PRIMARY KEY(`item_id`, `item_type`)
+);
+
+
+CREATE TABLE `item_type` (
+	`type_id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+	`type_label` VARCHAR(255),
+	PRIMARY KEY(`type_id`)
+);
+
+
+CREATE TABLE `inventaire` (
+	`u_id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+	`item_id` INTEGER NOT NULL,
+	PRIMARY KEY(`u_id`, `item_id`)
+);
+
+
+ALTER TABLE `item`
+ADD FOREIGN KEY(`item_type`) REFERENCES `item_type`(`type_id`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `inventaire`
+ADD FOREIGN KEY(`u_id`) REFERENCES `user`(`u_id`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `inventaire`
+ADD FOREIGN KEY(`item_id`) REFERENCES `item`(`item_id`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
