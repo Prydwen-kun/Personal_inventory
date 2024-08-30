@@ -101,14 +101,32 @@ player1.getPlayerControls().addEventListener("unlock", function () {
 
 scene.add(player1.getPlayerControls().getObject());
 
+/////////////////CANNON INIT////////////
+//array of all scene object to process collision
+
+CANNON_INIT.addBoxCollider(player1, world, sceneObjectArray);
+
+/////////////////CANNON INIT////////////
+
+//DELTA SUM DEBUG
+let deltaSum = 0;
+console.log("scene object array : ", sceneObjectArray);
+
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 function updatePlay() {
   requestAnimationFrame(updatePlay);
+  let deltaTimeStoring = clock.getDelta();
 
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
+
+  //UPDATE ALL ACTOR IN THE SCENE
+  player1.update(deltaTimeStoring, map1.getFloorObject());
+
+  //UPDATE PHYSICS THROUGH CANNON
+  CANNON_INIT.updatePhysics(sceneObjectArray, world, deltaTimeStoring);
 
   renderer.render(scene, camera);
 }
