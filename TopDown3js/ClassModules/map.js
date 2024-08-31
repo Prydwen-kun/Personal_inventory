@@ -6,7 +6,7 @@ class map {
     constructor(scene, loader) {
         this.scene = scene;
         this.loader = loader;
-        //level geometry
+        //level geometry importe un json et foreach genere la map
         //WALL (-50, 0.5, 0)
         this.wall = new CUBE.cube(100, 40, 1, loader, -50, 0.5, 0);
         this.wall.rotate(0, Math.PI / 2, 0);

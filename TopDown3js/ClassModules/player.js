@@ -122,14 +122,6 @@ class player {
       } else if (this.jumping && this.body.aabb.overlaps(floor.body.aabb)) {
         this.jumping = false;
       }
-
-      // //gravity
-      // if (this.jumping && !this.body.aabb.overlaps(floor.body.aabb)) {
-      //   this.body.applyImpulse(
-      //     new CANNON.Vec3(0, -9.82, 0),
-      //     this.mesh.position
-      //   );
-      // }
     }
 
     //UPDATE CAMERA AND COLLIDER POSITION
@@ -143,7 +135,7 @@ class player {
     this.camera.position.copy(
       new THREE.Vector3(
         this.camera.position.x,
-        this.body.position.y,
+        this.body.position.y + 0.75,
         this.camera.position.z
       )
     );

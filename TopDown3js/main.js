@@ -5,6 +5,8 @@ import * as MOBS from "./ClassModules/mobs.js";
 import * as MAP from "./ClassModules/map.js";
 import * as CANNON from "cannon-es";
 import * as CANNON_INIT from "./ClassModules/cannon_init.js";
+import * as GAMESTATE from "./ClassModules/gamestate.js";
+import * as ATH from "./ClassModules/ath.js";
 
 //INIT SCENE AND CAMERA
 const scene = new THREE.Scene();
@@ -81,7 +83,9 @@ camera.position.y = 1.75;
 //PLAYER
 const player1 = new PLAYER.player("P1", camera, renderer.domElement, clock);
 
-// EVENT LISTENERS AND PAUSE MENU
+// EVENT LISTENERS AND GAMESTATE
+const gameState = new GAMESTATE.gamestate();
+
 const blocker = document.getElementById("blocker");
 const instructions = document.getElementById("instructions");
 
@@ -92,11 +96,13 @@ instructions.addEventListener("click", function () {
 player1.getPlayerControls().addEventListener("lock", function () {
   instructions.style.display = "none";
   blocker.style.display = "none";
+  gameState.setGameState("game");
 });
 
 player1.getPlayerControls().addEventListener("unlock", function () {
   blocker.style.display = "block";
   instructions.style.display = "";
+  gameState.setGameState("pause");
 });
 
 scene.add(player1.getPlayerControls().getObject());
@@ -108,27 +114,41 @@ CANNON_INIT.addBoxCollider(player1, world, sceneObjectArray);
 
 /////////////////CANNON INIT////////////
 
-
 console.log("scene object array : ", sceneObjectArray);
 
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 function updatePlay() {
-  requestAnimationFrame(updatePlay);
-  let deltaTimeStoring = clock.getDelta();
+  // console.log(gameState.getGameState())
+  switch (gameState.getGameState()) {
+    //PAUSE/////////////
+    case "pause":
+      requestAnimationFrame(updatePlay);
+      break;
+    //GAME//////////////
+    case "game":
+      requestAnimationFrame(updatePlay);
+      let deltaTimeStoring = clock.getDelta();
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
 
-  //UPDATE ALL ACTOR IN THE SCENE
-  player1.update(deltaTimeStoring, map1.getFloorObject());
+      //UPDATE ALL ACTOR IN THE SCENE
+      player1.update(deltaTimeStoring, map1.getFloorObject());
 
-  //UPDATE PHYSICS THROUGH CANNON
-  CANNON_INIT.updatePhysics(sceneObjectArray, world, deltaTimeStoring);
+      //UPDATE PHYSICS THROUGH CANNON
+      CANNON_INIT.updatePhysics(sceneObjectArray, world, deltaTimeStoring);
 
-  renderer.render(scene, camera);
+      renderer.render(scene, camera);
+      break;
+    //MENU//////////////
+    case "menu":
+      requestAnimationFrame(updatePlay);
+      break;
+  }
 }
+
 updatePlay();
 
 //IN CASE OF WINDOW RESIZE//

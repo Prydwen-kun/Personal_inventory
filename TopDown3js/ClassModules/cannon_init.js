@@ -16,7 +16,7 @@ function initCannon() {
 function addBoxCollider(sceneObject, world, sceneObjectArray) {
     let sizeCopy = new THREE.Vector3(sceneObject.size.x / 2, sceneObject.size.y / 2, sceneObject.size.z / 2);
     sceneObject.shape = new CANNON.Box(sizeCopy);//sceneObject.size
-    sceneObject.mass = 1;
+    sceneObject.mass = 60;
     sceneObject.body = new CANNON.Body({
         mass: 60
     });
