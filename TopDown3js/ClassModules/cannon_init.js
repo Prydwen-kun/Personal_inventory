@@ -18,7 +18,7 @@ function addBoxCollider(sceneObject, world, sceneObjectArray) {
     sceneObject.shape = new CANNON.Box(sizeCopy);//sceneObject.size
     sceneObject.mass = 1;
     sceneObject.body = new CANNON.Body({
-        mass: 1
+        mass: 60
     });
 
     sceneObject.body.addShape(sceneObject.shape);

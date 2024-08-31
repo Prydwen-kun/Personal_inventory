@@ -33,7 +33,10 @@ class player {
     );
     //position and speed
     this.velocity = 10;
-    this.direction = new THREE.Vector3(0, 0, 1);
+
+    this.direction = new THREE.Vector3(0, 0, 0);
+    this.camera.getWorldDirection(this.direction);
+    this.direction.normalize();
     //Keymap
     this.keymap = {};
 
@@ -81,34 +84,26 @@ class player {
       this.keymap[keyCode] = false;
     };
 
-    ////GET PLAYER DIRECTION///
-    let playerDirectionNormal = new THREE.Vector3(0, 0, 0);
-    this.camera.getWorldDirection(playerDirectionNormal);
-    playerDirectionNormal.normalize();
-
     if (this.body !== null) {
-      let resultVector1 = new THREE.Vector3(0, 0, 0);
-      this.body.getVelocityAtWorldPoint(this.body.position, resultVector1);
-      let velocity1 = resultVector1.length();
       //UP
-      if (this.keymap["KeyW"] == true && velocity1 <= this.velocity) {
+      if (this.keymap["KeyW"] == true) {
         // this.body.applyForce(playerDirectionNormal.multiplyScalar(this.velocity), this.mesh.position);
         this.controls.moveForward(this.velocity * delta);
       }
 
       //DOWN
-      if (this.keymap["KeyS"] == true && velocity1 <= this.velocity) {
+      if (this.keymap["KeyS"] == true) {
         // this.body.applyForce(playerDirectionNormal.multiplyScalar(-this.velocity), this.mesh.position);
         this.controls.moveForward(this.velocity * delta * -1);
       }
 
       //LEFT
-      if (this.keymap["KeyA"] == true && velocity1 <= this.velocity) {
+      if (this.keymap["KeyA"] == true) {
         this.controls.moveRight(this.velocity * delta * -1);
       }
 
       //RIGHT
-      if (this.keymap["KeyD"] == true && velocity1 <= this.velocity) {
+      if (this.keymap["KeyD"] == true) {
         this.controls.moveRight(this.velocity * delta);
       }
     }
@@ -122,23 +117,41 @@ class player {
         !this.jumping
       ) {
         //add vertical impulse
-        this.body.applyImpulse(
-          new CANNON.Vec3(0, 80, 0),
-          this.mesh.position
-        );
+        this.body.applyImpulse(new CANNON.Vec3(0, 80, 0), this.mesh.position);
         this.jumping = true;
       } else if (this.jumping && this.body.aabb.overlaps(floor.body.aabb)) {
         this.jumping = false;
       }
+
+      // //gravity
+      // if (this.jumping && !this.body.aabb.overlaps(floor.body.aabb)) {
+      //   this.body.applyImpulse(
+      //     new CANNON.Vec3(0, -9.82, 0),
+      //     this.mesh.position
+      //   );
+      // }
     }
 
     //UPDATE CAMERA AND COLLIDER POSITION
-    this.camera.position.copy(this.body.position);
+    this.body.position.copy(
+      new THREE.Vector3(
+        this.camera.position.x,
+        this.body.position.y,
+        this.camera.position.z
+      )
+    );
+    this.camera.position.copy(
+      new THREE.Vector3(
+        this.camera.position.x,
+        this.body.position.y,
+        this.camera.position.z
+      )
+    );
     this.body.quaternion.setFromAxisAngle(
       new THREE.Vector3(0, 1, 0),
       this.camera.quaternion.w
     );
-    this.camera.position.y += 0.75;
+    // this.camera.position.y += 0.75;
   }
 }
 

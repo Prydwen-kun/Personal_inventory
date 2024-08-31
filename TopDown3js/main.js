@@ -108,8 +108,7 @@ CANNON_INIT.addBoxCollider(player1, world, sceneObjectArray);
 
 /////////////////CANNON INIT////////////
 
-//DELTA SUM DEBUG
-let deltaSum = 0;
+
 console.log("scene object array : ", sceneObjectArray);
 
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
