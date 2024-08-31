@@ -30,6 +30,14 @@ CREATE TABLE `inventaire` (
 );
 
 
+CREATE TABLE `game_session` (
+	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+	`player_score` INTEGER NOT NULL,
+	`u_id` INTEGER NOT NULL,
+	PRIMARY KEY(`id`, `u_id`)
+);
+
+
 ALTER TABLE `item`
 ADD FOREIGN KEY(`item_type`) REFERENCES `item_type`(`type_id`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
@@ -38,4 +46,7 @@ ADD FOREIGN KEY(`u_id`) REFERENCES `user`(`u_id`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `inventaire`
 ADD FOREIGN KEY(`item_id`) REFERENCES `item`(`item_id`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `game_session`
+ADD FOREIGN KEY(`u_id`) REFERENCES `user`(`u_id`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
