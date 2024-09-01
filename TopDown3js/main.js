@@ -27,7 +27,12 @@ document.getElementById("game_container").appendChild(renderer.domElement);
 
 //////////CANNON VAR INIT/////////////
 let sceneObjectArray = [];
-const world = CANNON_INIT.initCannon();
+let sceneActorArray = [];
+
+const CannonInitObject = CANNON_INIT.initCannon();
+const world = CannonInitObject.world;
+const floorMaterial = CannonInitObject.floorMaterial;
+const characterMaterial = CannonInitObject.characterMaterial;
 
 //TEXTURE LOADER
 const loader = new THREE.TextureLoader();
@@ -47,7 +52,7 @@ cube.position.x = -10;
 
 /////////////////////INIT MAP/////////////////
 const map1 = new MAP.map(scene, loader);
-map1.generateMapCollider(world, sceneObjectArray);
+map1.generateMapCollider(world, sceneObjectArray,floorMaterial);
 
 //AMBIENT LIGHT
 const light = new THREE.AmbientLight(0xcccccc); // soft white light
@@ -110,10 +115,10 @@ scene.add(player1.getPlayerControls().getObject());
 /////////////////CANNON INIT////////////
 //array of all scene object to process collision
 
-CANNON_INIT.addBoxCollider(player1, world, sceneObjectArray);
+CANNON_INIT.addBoxCollider(player1, world, sceneActorArray, characterMaterial);
 
 /////////////////CANNON INIT////////////
-
+console.log("scene actor array : ", sceneActorArray);
 console.log("scene object array : ", sceneObjectArray);
 
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
@@ -138,7 +143,12 @@ function updatePlay() {
       player1.update(deltaTimeStoring, map1.getFloorObject());
 
       //UPDATE PHYSICS THROUGH CANNON
-      CANNON_INIT.updatePhysics(sceneObjectArray, world, deltaTimeStoring);
+      CANNON_INIT.updatePhysics(
+        sceneObjectArray,
+        sceneActorArray,
+        world,
+        deltaTimeStoring
+      );
 
       renderer.render(scene, camera);
       break;

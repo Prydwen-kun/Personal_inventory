@@ -117,7 +117,7 @@ class player {
         !this.jumping
       ) {
         //add vertical impulse
-        this.body.applyImpulse(new CANNON.Vec3(0, 80, 0), this.mesh.position);
+        this.body.applyImpulse(new CANNON.Vec3(0, 1000, 0), this.mesh.position);
         this.jumping = true;
       } else if (this.jumping && this.body.aabb.overlaps(floor.body.aabb)) {
         this.jumping = false;
