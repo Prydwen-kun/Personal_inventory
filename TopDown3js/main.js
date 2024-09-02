@@ -139,6 +139,9 @@ console.log("scene actor array : ", sceneActorArray);
 console.log("scene object array : ", sceneObjectArray);
 console.log("floor array : ", map1.getFloorArray());
 
+//////ATH////////
+let gameUI = new ATH.UI_data();
+
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
@@ -148,6 +151,7 @@ function updatePlay() {
     //PAUSE/////////////
     case "pause":
       requestAnimationFrame(updatePlay);
+      gameUI.displayGameData(gameState.timer, gameState.score);
       break;
     //GAME//////////////
     case "game":
@@ -159,6 +163,9 @@ function updatePlay() {
 
       //game timer
       gameState.stepClockSec(deltaTimeStoring);
+      //update game info data
+      gameUI.displayGameData(gameState.timer, gameState.score);
+      gameState.updateScore(player1.getPlayerPosition().y);
 
       //UPDATE ALL ACTOR IN THE SCENE
       // player1.update(deltaTimeStoring, map1.getFloorObject());

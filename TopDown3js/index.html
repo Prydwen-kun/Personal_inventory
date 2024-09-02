@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,22 +7,26 @@
     <title>Top Down</title>
   </head>
   <body>
+    <div class="gameCurrentData">
+      <div>Timer : </div>
+      <div class="timer" id="gameTimer"></div>
+      <div>Score : </div>
+      <div class="score" id="gameScore"></div>
+    </div>
     <div id="app"></div>
-  <div id="game_container">
-    <script type="module" src="/main.js"></script>
-    <div id="blocker">
-      <div id="instructions">
-        <p style="font-size:36px">
-          Click to play
-        </p>
-        <p>
-          Move: WASD<br />
-          Jump: SPACE<br />
-          Look: MOUSE<br />
-          Escape to exit
-        </p>
+    <div id="game_container">
+      <script type="module" src="/main.js"></script>
+      <div id="blocker">
+        <div id="instructions">
+          <p style="font-size: 36px">Click to play</p>
+          <p>
+            Move: WASD<br />
+            Jump: SPACE<br />
+            Look: MOUSE<br />
+            Escape to exit
+          </p>
+        </div>
       </div>
     </div>
-  </div>
   </body>
 </html>

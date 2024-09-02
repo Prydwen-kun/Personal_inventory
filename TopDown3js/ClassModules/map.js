@@ -65,12 +65,12 @@ class map {
     this.wall4.type = "wall";
 
     this.wallFloor = new CUBE.cube(
-      100,
-      1,
-      100,
+      10000,
+      10,
+      10000,
       loader,
       0,
-      -0.5,
+      -5,
       0,
       "/rocky_trail_02_diff_1k.jpg"
     );

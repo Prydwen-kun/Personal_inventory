@@ -46,6 +46,9 @@ class player {
   }
 
   //getter
+  getPlayerPosition() {
+    return this.mesh.position;
+  }
   getPlayerDirection() {
     return this.direction;
   }

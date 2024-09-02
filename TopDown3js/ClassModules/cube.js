@@ -6,6 +6,9 @@ class cube {
     const material = new THREE.MeshLambertMaterial({ color: 0x00aaee });
     const textureWall = loader.load(texture);
     textureWall.repeat.set(4, 4);
+    if (texture == "/rocky_trail_02_diff_1k.jpg") {
+      textureWall.repeat.set(1000, 1000);
+    }
     textureWall.wrapS = THREE.RepeatWrapping;
     textureWall.wrapT = THREE.RepeatWrapping;
     const materialWall = new THREE.MeshLambertMaterial({ map: textureWall });

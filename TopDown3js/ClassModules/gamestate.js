@@ -3,6 +3,8 @@ class gamestate {
     this.state = "pause";
     this.deltaSum = 0;
     this.timer = 0;
+    this.score = 0;
+    this.playerMaxY = 0;
   }
   setGameState(action) {
     switch (action) {
@@ -28,6 +30,12 @@ class gamestate {
       this.timer++;
       this.deltaSum = 0;
     }
+  }
+  updateScore(playerYpos) {
+    if (playerYpos > this.playerMaxY) {
+      this.playerMaxY = playerYpos;
+    }
+    this.score = Math.trunc(this.playerMaxY * 10);
   }
 }
 
