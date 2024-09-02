@@ -7,6 +7,7 @@ import * as CANNON from "cannon-es";
 import * as CANNON_INIT from "./ClassModules/cannon_init.js";
 import * as GAMESTATE from "./ClassModules/gamestate.js";
 import * as ATH from "./ClassModules/ath.js";
+import { Sky } from "./three.js-master/examples/jsm/objects/Sky.js";
 
 //INIT SCENE AND CAMERA
 const scene = new THREE.Scene();
@@ -16,6 +17,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
 scene.background = new THREE.Color(0xfa6f66);
 scene.fog = new THREE.Fog(0xbbbbbb, 10, 500);
 scene.updateWorldMatrix(true, true);
@@ -39,6 +41,18 @@ console.log("world contact material : ", world.contactmaterials);
 
 //TEXTURE LOADER
 const loader = new THREE.TextureLoader();
+
+//SKY
+const sky = new Sky();
+sky.scale.setScalar(450000);
+
+const phi = THREE.MathUtils.degToRad(45);
+const theta = THREE.MathUtils.degToRad(0);
+const sunPosition = new THREE.Vector3().setFromSphericalCoords(1, phi, theta);
+
+sky.material.uniforms.sunPosition.value = sunPosition;
+
+scene.add(sky);
 
 //CLOCK
 const clock = new THREE.Clock();
@@ -84,7 +98,7 @@ directionalLight.target.updateMatrixWorld();
 const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
 scene.add(helper);
 
-//camera position
+//camera position + player starting pos
 camera.position.z = 5;
 camera.position.y = 1.75;
 
@@ -142,6 +156,9 @@ function updatePlay() {
 
       cube.rotation.x += 0.01;
       cube.rotation.y += 0.01;
+
+      //game timer
+      gameState.stepClockSec(deltaTimeStoring);
 
       //UPDATE ALL ACTOR IN THE SCENE
       // player1.update(deltaTimeStoring, map1.getFloorObject());
