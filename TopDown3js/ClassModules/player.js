@@ -42,6 +42,7 @@ class player {
 
     //flag
     this.jumping = false;
+    this.touchFloor = false;
   }
 
   //getter
@@ -67,7 +68,7 @@ class player {
   }
 
   //UPDATE PLAYER
-  update(delta, floor) {
+  update(delta, floorArray) {
     //EVENT WATCH
 
     onkeydown = (event) => {
@@ -110,18 +111,32 @@ class player {
 
     if (typeof this.body !== undefined) {
       //JUMP
+      floorArray.forEach((floor) => {
+        if (this.body.aabb.overlaps(floor.body.aabb)) {
+          this.touchFloor = true;
+        }
+      });
+      // for (const floor in floorArray) {
+      //   if (this.body.aabb.overlaps(floor.body.aabb)) {
+      //     this.touchFloor = true;
+      //   }
+      // }
 
-      if (
-        this.keymap["Space"] == true &&
-        this.body.aabb.overlaps(floor.body.aabb) &&
-        !this.jumping
-      ) {
-        //add vertical impulse
-        this.body.applyImpulse(new CANNON.Vec3(0, 1000, 0), this.mesh.position);
-        this.jumping = true;
-      } else if (this.jumping && this.body.aabb.overlaps(floor.body.aabb)) {
+      if (this.keymap["Space"] == true) {
+        if (!this.jumping && this.touchFloor) {
+          //add vertical impulse
+          this.body.applyImpulse(
+            new CANNON.Vec3(0, 600, 0),
+            this.mesh.position
+          );
+          this.jumping = true;
+        }
+      }
+
+      if (this.jumping && this.touchFloor) {
         this.jumping = false;
       }
+      this.touchFloor = false;
     }
 
     //UPDATE CAMERA AND COLLIDER POSITION

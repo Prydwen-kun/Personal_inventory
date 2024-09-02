@@ -32,8 +32,19 @@ class map {
     this.wallFloor.rotate(0, 0, 0);
     this.wallFloor.addToScene(scene);
     this.wallFloor.type = "floor";
+    
+    this.wallFloor2 = new CUBE.cube(10, 1, 10, loader, 0, 5, 0);
+    this.wallFloor2.rotate(0, 0, 0);
+    this.wallFloor2.addToScene(scene);
+    this.wallFloor2.type = "floor";
+    
+    this.wallFloor3 = new CUBE.cube(5, 1, 5, loader, 0, 10, 10);
+    this.wallFloor3.rotate(0, 0, 0);
+    this.wallFloor3.addToScene(scene);
+    this.wallFloor3.type = "floor";
 
     this.mapGeometry = [];
+    this.floorArray = [];
   }
   generateMapCollider(world, sceneObjectArray, floorMaterial) {
     for (const mapObject in this) {
@@ -44,14 +55,20 @@ class map {
           sceneObjectArray,
           floorMaterial
         );
-        this.mapGeometry.push(mapObject);
+        this.mapGeometry.push(this[mapObject]);
       } else {
         console.log(mapObject);
+      }
+      if (mapObject.includes("Floor")) {
+        this.floorArray.push(this[mapObject]);
       }
     }
   }
   getFloorObject() {
     return this.wallFloor; //return an array of all floor object TODO
+  }
+  getFloorArray() {
+    return this.floorArray;
   }
   getMapGeometry() {
     return this.mapGeometry;

@@ -120,6 +120,8 @@ CANNON_INIT.addBoxCollider(player1, world, sceneActorArray, characterMaterial);
 /////////////////CANNON INIT////////////
 console.log("scene actor array : ", sceneActorArray);
 console.log("scene object array : ", sceneObjectArray);
+console.log("floor array : ", map1.getFloorArray());
+
 
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
@@ -140,7 +142,8 @@ function updatePlay() {
       cube.rotation.y += 0.01;
 
       //UPDATE ALL ACTOR IN THE SCENE
-      player1.update(deltaTimeStoring, map1.getFloorObject());
+      // player1.update(deltaTimeStoring, map1.getFloorObject());
+      player1.update(deltaTimeStoring, map1.getFloorArray());
 
       //UPDATE PHYSICS THROUGH CANNON
       CANNON_INIT.updatePhysics(
