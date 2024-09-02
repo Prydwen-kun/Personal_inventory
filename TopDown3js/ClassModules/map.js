@@ -8,37 +8,100 @@ class map {
     this.loader = loader;
     //level geometry importe un json et foreach genere la map
     //WALL (-50, 0.5, 0)
-    this.wall = new CUBE.cube(100, 40, 1, loader, -50, 0.5, 0);
+    this.wall = new CUBE.cube(
+      100,
+      40,
+      1,
+      loader,
+      -50,
+      0.5,
+      0,
+      "/metal_plate_diff_1k.jpg"
+    );
     this.wall.rotate(0, Math.PI / 2, 0);
     this.wall.addToScene(scene);
     this.wall.type = "wall";
     //WALL (0, 0.5, 50)
-    this.wall2 = new CUBE.cube(100, 40, 1, loader, 0, 0.5, 50);
+    this.wall2 = new CUBE.cube(
+      100,
+      40,
+      1,
+      loader,
+      0,
+      0.5,
+      50,
+      "/metal_plate_diff_1k.jpg"
+    );
     this.wall2.rotate(0, 0, 0);
     this.wall2.addToScene(scene);
     this.wall2.type = "wall";
     //WALL (50, 0.5, 0)
-    this.wall3 = new CUBE.cube(100, 40, 1, loader, 50, 0.5, 0);
+    this.wall3 = new CUBE.cube(
+      100,
+      40,
+      1,
+      loader,
+      50,
+      0.5,
+      0,
+      "/metal_plate_diff_1k.jpg"
+    );
     this.wall3.rotate(0, Math.PI / 2, 0);
     this.wall3.addToScene(scene);
     this.wall3.type = "wall";
 
-    this.wall4 = new CUBE.cube(100, 40, 1, loader, 0, 0.5, -50);
+    this.wall4 = new CUBE.cube(
+      100,
+      40,
+      1,
+      loader,
+      0,
+      0.5,
+      -50,
+      "/metal_plate_diff_1k.jpg"
+    );
     this.wall4.rotate(0, 0, 0);
     this.wall4.addToScene(scene);
     this.wall4.type = "wall";
 
-    this.wallFloor = new CUBE.cube(100, 1, 100, loader, 0, -0.5, 0);
+    this.wallFloor = new CUBE.cube(
+      100,
+      1,
+      100,
+      loader,
+      0,
+      -0.5,
+      0,
+      "/rocky_trail_02_diff_1k.jpg"
+    );
     this.wallFloor.rotate(0, 0, 0);
     this.wallFloor.addToScene(scene);
     this.wallFloor.type = "floor";
-    
-    this.wallFloor2 = new CUBE.cube(10, 1, 10, loader, 0, 5, 0);
+
+    this.wallFloor2 = new CUBE.cube(
+      10,
+      1,
+      10,
+      loader,
+      0,
+      5,
+      0,
+      "/metal_plate_diff_1k.jpg"
+    );
     this.wallFloor2.rotate(0, 0, 0);
     this.wallFloor2.addToScene(scene);
     this.wallFloor2.type = "floor";
-    
-    this.wallFloor3 = new CUBE.cube(5, 1, 5, loader, 0, 10, 10);
+
+    this.wallFloor3 = new CUBE.cube(
+      5,
+      1,
+      5,
+      loader,
+      0,
+      10,
+      10,
+      "/metal_plate_diff_1k.jpg"
+    );
     this.wallFloor3.rotate(0, 0, 0);
     this.wallFloor3.addToScene(scene);
     this.wallFloor3.type = "floor";

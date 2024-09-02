@@ -109,6 +109,13 @@ class player {
       }
     }
 
+    //SPRINT
+    if (this.keymap["ShiftLeft"] == true) {
+      this.velocity = 16;
+    } else {
+      this.velocity = 10;
+    }
+
     if (typeof this.body !== undefined) {
       //JUMP
       floorArray.forEach((floor) => {
@@ -116,7 +123,6 @@ class player {
           this.touchFloor = true;
         }
       });
-      
 
       if (this.keymap["Space"] == true) {
         if (!this.jumping && this.touchFloor) {
@@ -130,6 +136,7 @@ class player {
       }
 
       if (this.jumping && this.touchFloor) {
+        // this.body.velocity = new CANNON.Vec3(0, 0, 0);
         this.jumping = false;
       }
       this.touchFloor = false;
