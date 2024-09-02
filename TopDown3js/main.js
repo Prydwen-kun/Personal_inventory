@@ -34,6 +34,9 @@ const world = CannonInitObject.world;
 const floorMaterial = CannonInitObject.floorMaterial;
 const characterMaterial = CannonInitObject.characterMaterial;
 
+console.log("cannoninitobject : ", CannonInitObject);
+console.log("world contact material : ", world.contactmaterials);
+
 //TEXTURE LOADER
 const loader = new THREE.TextureLoader();
 
@@ -52,7 +55,7 @@ cube.position.x = -10;
 
 /////////////////////INIT MAP/////////////////
 const map1 = new MAP.map(scene, loader);
-map1.generateMapCollider(world, sceneObjectArray,floorMaterial);
+map1.generateMapCollider(world, sceneObjectArray, floorMaterial);
 
 //AMBIENT LIGHT
 const light = new THREE.AmbientLight(0xcccccc); // soft white light
@@ -121,7 +124,6 @@ CANNON_INIT.addBoxCollider(player1, world, sceneActorArray, characterMaterial);
 console.log("scene actor array : ", sceneActorArray);
 console.log("scene object array : ", sceneObjectArray);
 console.log("floor array : ", map1.getFloorArray());
-
 
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////
 /////////////////////////////////////////////////APP MAIN LOOP////////////////////////////////////

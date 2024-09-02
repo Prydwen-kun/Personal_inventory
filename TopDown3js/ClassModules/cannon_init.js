@@ -5,21 +5,26 @@ function initCannon() {
     gravity: new CANNON.Vec3(0, -9.82, 0), // m/s²
   });
 
-  //ADD MATERIAL
-  const floorMaterial = new CANNON.Material("floorMaterial", {
+  world.defaultMaterial = new CANNON.Material("defaultMaterial", {
     friction: 0.8,
     restitution: 0,
   });
+
+  //ADD MATERIAL
+  const floorMaterial = new CANNON.Material("floorMaterial", {
+    friction: 0.8,
+    restitution: 0.1,
+  });
   const characterMaterial = new CANNON.Material("characterMaterial", {
     friction: 0.8,
-    restitution: 0,
+    restitution: 0.1,
   });
 
   //ADD contact between material
   const floorToCharacter = new CANNON.ContactMaterial(
     floorMaterial,
     characterMaterial,
-    { friction: 0.8, restitution: 0 }
+    { friction: 0.8, restitution: 0.1 }
   );
   world.addContactMaterial(floorToCharacter);
 

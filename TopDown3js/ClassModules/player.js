@@ -116,11 +116,7 @@ class player {
           this.touchFloor = true;
         }
       });
-      // for (const floor in floorArray) {
-      //   if (this.body.aabb.overlaps(floor.body.aabb)) {
-      //     this.touchFloor = true;
-      //   }
-      // }
+      
 
       if (this.keymap["Space"] == true) {
         if (!this.jumping && this.touchFloor) {
