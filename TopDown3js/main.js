@@ -169,7 +169,7 @@ function updatePlay() {
 
       //UPDATE ALL ACTOR IN THE SCENE
       // player1.update(deltaTimeStoring, map1.getFloorObject());
-      player1.update(deltaTimeStoring, map1.getFloorArray());
+      player1.update(deltaTimeStoring, map1.getFloorArray(), world);
 
       //UPDATE PHYSICS THROUGH CANNON
       CANNON_INIT.updatePhysics(
