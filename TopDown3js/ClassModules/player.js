@@ -31,18 +31,59 @@ class player {
       camera.position.y - 0.75,
       camera.position.z
     );
+
+    console.log("Mesh pos :", this.mesh.position);
     //position and speed
     this.velocity = 10;
 
     this.direction = new THREE.Vector3(0, 0, 0);
     this.camera.getWorldDirection(this.direction);
-    this.direction.normalize();
+    this.normalizedDirection = this.direction.clone().normalize();
+    console.log("PC direction :", this.direction);
     //Keymap
     this.keymap = {};
 
     //flag
     this.jumping = false;
     this.touchFloor = false;
+
+    //RAY GROUP
+    /* Using .applyAxisAngle ( vec3 normalized , angle in rad)
+    forward : 0,0,0 --> direction 1,0,0
+    move forward 2 on X --> 2,0,0 --> direction 3,0,0
+    move 1,0,-1 XZ --> direction 2,0,-1
+    rotate left 90° --> direction 1,0,-2
+    */
+    this.rayLength = 0.5;
+    this.rayGroup = {
+      forwardRay: new CANNON.Ray(
+        this.mesh.position,
+        this.mesh.position
+          .clone()
+          .addScaledVector(
+            this.normalizedDirection.clone() /*rotate to other*/,
+            this.rayLength
+          )
+      ),
+      backwardRay: new CANNON.Ray(
+        this.mesh.position,
+        this.mesh.position
+          .clone()
+          .addScaledVector(this.normalizedDirection.clone(), this.rayLength)
+      ),
+      leftRay: new CANNON.Ray(
+        this.mesh.position,
+        this.mesh.position
+          .clone()
+          .addScaledVector(this.normalizedDirection.clone(), this.rayLength)
+      ),
+      rightRay: new CANNON.Ray(
+        this.mesh.position,
+        this.mesh.position
+          .clone()
+          .addScaledVector(this.normalizedDirection.clone(), this.rayLength)
+      ),
+    };
   }
 
   //getter
@@ -87,6 +128,11 @@ class player {
       let keyCode = event.code;
       this.keymap[keyCode] = false;
     };
+
+    //direction debug
+    this.camera.getWorldDirection(this.direction);
+    this.normalizedDirection = this.direction.clone().normalize();
+    console.log("PC direction :", this.direction);
 
     if (this.body !== null) {
       //UP
