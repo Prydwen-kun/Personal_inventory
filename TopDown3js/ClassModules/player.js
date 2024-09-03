@@ -1,6 +1,7 @@
 import { PointerLockControls } from "../three.js-master/examples/jsm/controls/PointerLockControls.js";
 import * as THREE from "../three.js-master/build/three.module.js";
 import * as CANNON from "cannon-es";
+import * as RAYGROUP from "./rayGroup.js";
 
 class player {
   constructor(name, camera, domElement, clock) {
@@ -125,7 +126,7 @@ class player {
                 .applyAxisAngle(
                   new THREE.Vector3(0, 1, 0),
                   Math.PI / 2
-                ) /*rotate to other*/,
+                ) ,
               this.rayLength
             ).x,
           this.mesh.position
