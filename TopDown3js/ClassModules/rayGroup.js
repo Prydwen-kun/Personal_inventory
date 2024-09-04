@@ -119,7 +119,7 @@ class rayGroup {
       normalizedDirection.z
     );
     //DEBUG
-    console.log("Debug raygroup :", this);
+    // console.log("Debug raygroup :", this);
 
     this.forwardRay.from = this.cannonPosition;
     this.forwardRay.to = this.cannonPosition
