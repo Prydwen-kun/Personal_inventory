@@ -120,7 +120,7 @@ class player {
     ////UPDATE RAYGROUP//////
 
     if (this.body !== null) {
-      //UP
+      ////UP////
       if (
         this.keymap["KeyW"] == true &&
         !this.rayGroup.forwardRay.hasHit &&
@@ -137,15 +137,23 @@ class player {
       ) {
         this.controls.moveForward(this.velocity * delta * -1);
       }
+
+      ////BACK////
       if (
         this.keymap["KeyS"] == true &&
         !this.rayGroup.backwardRay.hasHit &&
         !this.rayGroup.backwardLeftRay.hasHit &&
         !this.rayGroup.backwardRightRay.hasHit
       ) {
-        //DOWN
         // this.body.applyForce(playerDirectionNormal.multiplyScalar(-this.velocity), this.mesh.position);
         this.controls.moveForward(this.velocity * delta * -1);
+      } else if (
+        this.keymap["KeyS"] == true &&
+        (this.rayGroup.backwardRay.hasHit ||
+          this.rayGroup.backwardLeftRay.hasHit ||
+          this.rayGroup.backwardRightRay.hasHit)
+      ) {
+        this.controls.moveForward(this.velocity * delta);
       }
 
       //LEFT
@@ -156,6 +164,13 @@ class player {
         !this.rayGroup.backwardLeftRay.hasHit
       ) {
         this.controls.moveRight(this.velocity * delta * -1);
+      } else if (
+        this.keymap["KeyA"] == true &&
+        (this.rayGroup.leftRay.hasHit ||
+          this.rayGroup.forwardLeftRay.hasHit ||
+          this.rayGroup.backwardLeftRay.hasHit)
+      ) {
+        this.controls.moveRight(this.velocity * delta);
       }
 
       //RIGHT
@@ -166,6 +181,13 @@ class player {
         !this.rayGroup.backwardRightRay.hasHit
       ) {
         this.controls.moveRight(this.velocity * delta);
+      } else if (
+        this.keymap["KeyD"] == true &&
+        (this.rayGroup.rightRay.hasHit ||
+          this.rayGroup.forwardRightRay.hasHit ||
+          this.rayGroup.backwardRightRay.hasHit)
+      ) {
+        this.controls.moveRight(this.velocity * delta * -1);
       }
     }
 
