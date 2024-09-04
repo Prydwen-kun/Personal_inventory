@@ -121,24 +121,50 @@ class player {
 
     if (this.body !== null) {
       //UP
-      if (this.keymap["KeyW"] == true && !this.rayGroup.forwardRay.hasHit) {
+      if (
+        this.keymap["KeyW"] == true &&
+        !this.rayGroup.forwardRay.hasHit &&
+        !this.rayGroup.forwardLeftRay.hasHit &&
+        !this.rayGroup.forwardRightRay.hasHit
+      ) {
         // this.body.applyForce(playerDirectionNormal.multiplyScalar(this.velocity), this.mesh.position);
         this.controls.moveForward(this.velocity * delta);
+      } else if (
+        this.keymap["KeyW"] == true &&
+        (this.rayGroup.forwardRay.hasHit ||
+          this.rayGroup.forwardLeftRay.hasHit ||
+          this.rayGroup.forwardRightRay.hasHit)
+      ) {
+        this.controls.moveForward(this.velocity * delta * -1);
       }
-
-      //DOWN
-      if (this.keymap["KeyS"] == true && !this.rayGroup.backwardRay.hasHit) {
+      if (
+        this.keymap["KeyS"] == true &&
+        !this.rayGroup.backwardRay.hasHit &&
+        !this.rayGroup.backwardLeftRay.hasHit &&
+        !this.rayGroup.backwardRightRay.hasHit
+      ) {
+        //DOWN
         // this.body.applyForce(playerDirectionNormal.multiplyScalar(-this.velocity), this.mesh.position);
         this.controls.moveForward(this.velocity * delta * -1);
       }
 
       //LEFT
-      if (this.keymap["KeyA"] == true && !this.rayGroup.leftRay.hasHit) {
+      if (
+        this.keymap["KeyA"] == true &&
+        !this.rayGroup.leftRay.hasHit &&
+        !this.rayGroup.forwardLeftRay.hasHit &&
+        !this.rayGroup.backwardLeftRay.hasHit
+      ) {
         this.controls.moveRight(this.velocity * delta * -1);
       }
 
       //RIGHT
-      if (this.keymap["KeyD"] == true && !this.rayGroup.rightRay.hasHit) {
+      if (
+        this.keymap["KeyD"] == true &&
+        !this.rayGroup.rightRay.hasHit &&
+        !this.rayGroup.forwardRightRay.hasHit &&
+        !this.rayGroup.backwardRightRay.hasHit
+      ) {
         this.controls.moveRight(this.velocity * delta);
       }
     }
