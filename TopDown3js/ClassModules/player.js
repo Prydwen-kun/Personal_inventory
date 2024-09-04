@@ -113,7 +113,11 @@ class player {
 
     ////UPDATE RAYGROUP//////
     this.rayGroup.updateRayGroup(
-      this.mesh.position,
+      new THREE.Vector3(
+        this.mesh.position.x,
+        this.mesh.position.y,
+        this.mesh.position.z
+      ),
       this.normalizedDirection,
       world
     );
