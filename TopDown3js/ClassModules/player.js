@@ -56,152 +56,11 @@ class player {
     rotate left 90° --> direction 1,0,-2
     */
     this.rayLength = 0.5;
-    this.rayGroup = {
-      forwardRay: new CANNON.Ray(
-        new CANNON.Vec3(
-          this.mesh.position.x,
-          this.mesh.position.y,
-          this.mesh.position.z
-        ),
-        new CANNON.Vec3(
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection.clone() /*rotate to other*/,
-              this.rayLength
-            ).x,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection.clone() /*rotate to other*/,
-              this.rayLength
-            ).y,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection.clone() /*rotate to other*/,
-              this.rayLength
-            ).z
-        )
-      ),
-      backwardRay: new CANNON.Ray(
-        new CANNON.Vec3(
-          this.mesh.position.x,
-          this.mesh.position.y,
-          this.mesh.position.z
-        ),
-        new CANNON.Vec3(
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection.clone() /*rotate to other*/,
-              -this.rayLength
-            ).x,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection.clone() /*rotate to other*/,
-              -this.rayLength
-            ).y,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection.clone() /*rotate to other*/,
-              -this.rayLength
-            ).z
-        )
-      ),
-      leftRay: new CANNON.Ray(
-        new CANNON.Vec3(
-          this.mesh.position.x,
-          this.mesh.position.y,
-          this.mesh.position.z
-        ),
-        new CANNON.Vec3(
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection
-                .clone()
-                .applyAxisAngle(
-                  new THREE.Vector3(0, 1, 0),
-                  Math.PI / 2
-                ) ,
-              this.rayLength
-            ).x,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection
-                .clone()
-                .applyAxisAngle(
-                  new THREE.Vector3(0, 1, 0),
-                  Math.PI / 2
-                ) /*rotate to other*/,
-              this.rayLength
-            ).y,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection
-                .clone()
-                .applyAxisAngle(
-                  new THREE.Vector3(0, 1, 0),
-                  Math.PI / 2
-                ) /*rotate to other*/,
-              this.rayLength
-            ).z
-        )
-      ),
-      rightRay: new CANNON.Ray(
-        new CANNON.Vec3(
-          this.mesh.position.x,
-          this.mesh.position.y,
-          this.mesh.position.z
-        ),
-        new CANNON.Vec3(
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection
-                .clone()
-                .applyAxisAngle(
-                  new THREE.Vector3(0, 1, 0),
-                  -(Math.PI / 2)
-                ) /*rotate to other*/,
-              this.rayLength
-            ).x,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection
-                .clone()
-                .applyAxisAngle(
-                  new THREE.Vector3(0, 1, 0),
-                  -(Math.PI / 2)
-                ) /*rotate to other*/,
-              this.rayLength
-            ).y,
-          this.mesh.position
-            .clone()
-            .addScaledVector(
-              this.normalizedDirection
-                .clone()
-                .applyAxisAngle(
-                  new THREE.Vector3(0, 1, 0),
-                  -(Math.PI / 2)
-                ) /*rotate to other*/,
-              this.rayLength
-            ).z
-        )
-      ),
-    };
-    this.hitResults = {
-      front: new CANNON.RaycastResult(),
-      back: new CANNON.RaycastResult(),
-      left: new CANNON.RaycastResult(),
-      right: new CANNON.RaycastResult(),
-    };
+    this.rayGroup = new RAYGROUP.rayGroup(
+      0.5,
+      this.mesh.position,
+      this.normalizedDirection
+    );
   }
 
   //getter
@@ -247,169 +106,18 @@ class player {
       this.keymap[keyCode] = false;
     };
 
-    //direction debug
+    //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
     this.normalizedDirection = this.direction.clone().normalize();
-    console.log("PC direction :", this.direction);
+    // console.log("PC direction :", this.direction);
 
     ////UPDATE RAYGROUP//////
-    //forward
-    this.rayGroup.forwardRay.from = new CANNON.Vec3(
-      this.mesh.position.x,
-      this.mesh.position.y,
-      this.mesh.position.z
-    );
-
-    this.rayGroup.forwardRay.to = new CANNON.Vec3(
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection.clone() /*rotate to other*/,
-          this.rayLength
-        ).x,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection.clone() /*rotate to other*/,
-          this.rayLength
-        ).y,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection.clone() /*rotate to other*/,
-          this.rayLength
-        ).z
-    );
-
-    //back
-    this.rayGroup.backwardRay.from = new CANNON.Vec3(
-      this.mesh.position.x,
-      this.mesh.position.y,
-      this.mesh.position.z
-    );
-
-    this.rayGroup.backwardRay.to = new CANNON.Vec3(
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection.clone() /*rotate to other*/,
-          -this.rayLength
-        ).x,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection.clone() /*rotate to other*/,
-          -this.rayLength
-        ).y,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection.clone() /*rotate to other*/,
-          -this.rayLength
-        ).z
-    );
-    //left
-    this.rayGroup.leftRay.from = new CANNON.Vec3(
-      this.mesh.position.x,
-      this.mesh.position.y,
-      this.mesh.position.z
-    );
-    this.rayGroup.leftRay.to = new CANNON.Vec3(
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection
-            .clone()
-            .applyAxisAngle(
-              new THREE.Vector3(0, 1, 0),
-              Math.PI / 2
-            ) /*rotate to other*/,
-          this.rayLength
-        ).x,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection
-            .clone()
-            .applyAxisAngle(
-              new THREE.Vector3(0, 1, 0),
-              Math.PI / 2
-            ) /*rotate to other*/,
-          this.rayLength
-        ).y,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection
-            .clone()
-            .applyAxisAngle(
-              new THREE.Vector3(0, 1, 0),
-              Math.PI / 2
-            ) /*rotate to other*/,
-          this.rayLength
-        ).z
-    );
-    //right
-    this.rayGroup.rightRay.from = new CANNON.Vec3(
-      this.mesh.position.x,
-      this.mesh.position.y,
-      this.mesh.position.z
-    );
-
-    this.rayGroup.rightRay.to = new CANNON.Vec3(
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection
-            .clone()
-            .applyAxisAngle(
-              new THREE.Vector3(0, 1, 0),
-              -(Math.PI / 2)
-            ) /*rotate to other*/,
-          this.rayLength
-        ).x,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection
-            .clone()
-            .applyAxisAngle(
-              new THREE.Vector3(0, 1, 0),
-              -(Math.PI / 2)
-            ) /*rotate to other*/,
-          this.rayLength
-        ).y,
-      this.mesh.position
-        .clone()
-        .addScaledVector(
-          this.normalizedDirection
-            .clone()
-            .applyAxisAngle(
-              new THREE.Vector3(0, 1, 0),
-              -(Math.PI / 2)
-            ) /*rotate to other*/,
-          this.rayLength
-        ).z
+    this.rayGroup.updateRayGroup(
+      this.mesh.position,
+      this.normalizedDirection,
+      world
     );
     ////UPDATE RAYGROUP//////
-    ////UPDATE COLLISION TEST////
-    this.rayGroup.forwardRay.intersectWorld(world, {
-      mode: CANNON.RAY_MODES.CLOSEST,
-      result: this.hitResults.front,
-    });
-    this.rayGroup.backwardRay.intersectWorld(world, {
-      mode: CANNON.RAY_MODES.CLOSEST,
-      result: this.hitResults.back,
-    });
-    this.rayGroup.leftRay.intersectWorld(world, {
-      mode: CANNON.RAY_MODES.CLOSEST,
-      result: this.hitResults.left,
-    });
-    this.rayGroup.rightRay.intersectWorld(world, {
-      mode: CANNON.RAY_MODES.CLOSEST,
-      result: this.hitResults.right,
-    });
-    ////UPDATE COLLISION TEST////
 
     if (this.body !== null) {
       //UP
@@ -469,6 +177,7 @@ class player {
     }
 
     //UPDATE CAMERA AND COLLIDER POSITION
+
     this.body.position.copy(
       new THREE.Vector3(
         this.camera.position.x,
