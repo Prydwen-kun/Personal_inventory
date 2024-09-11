@@ -7,7 +7,7 @@ class player {
   constructor(name, camera, domElement, clock) {
     this.name = name;
     this.controls = new PointerLockControls(camera, domElement);
-    this.controls.pointerSpeed = 1;
+    this.controls.pointerSpeed = 1;//pointer Speed Option to set
     this.renderCanvas = domElement;
     this.camera = camera;
     this.clock = clock;
@@ -49,12 +49,6 @@ class player {
     this.touchFloor = false;
 
     //RAY GROUP
-    /* Using .applyAxisAngle ( vec3 normalized , angle in rad)
-    forward : 0,0,0 --> direction 1,0,0
-    move forward 2 on X --> 2,0,0 --> direction 3,0,0
-    move 1,0,-1 XZ --> direction 2,0,-1
-    rotate left 90° --> direction 1,0,-2
-    */
     this.rayLength = 0.5;
     this.rayGroup = new RAYGROUP.rayGroup(
       0.5,
@@ -195,7 +189,7 @@ class player {
       }
     }
 
-    //SPRINT
+    /////SPRINT////
     if (this.keymap["ShiftLeft"] == true) {
       this.velocity = 16;
     } else {
@@ -203,7 +197,7 @@ class player {
     }
 
     if (typeof this.body !== undefined) {
-      //JUMP
+      //////JUMP//////
       floorArray.forEach((floor) => {
         if (this.body.aabb.overlaps(floor.body.aabb)) {
           this.touchFloor = true;
