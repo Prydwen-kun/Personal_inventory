@@ -11,11 +11,7 @@ function initCannon() {
   };
 }
 
-function addBoxCollider(
-  sceneObject,
-  world,
-  sceneActorArray,
-) {
+function addBoxCollider(sceneObject, world, sceneActorArray) {
   let sizeCopy = new THREE.Vector3(
     sceneObject.size.x / 2,
     sceneObject.size.y / 2,
@@ -36,14 +32,9 @@ function addBoxCollider(
 
   world.addBody(sceneObject.body);
   sceneActorArray.push(sceneObject);
-  
 }
 
-function addStaticBoxCollider(
-  sceneObject,
-  world,
-  sceneObjectArray
-) {
+function addStaticBoxCollider(sceneObject, world, sceneObjectArray) {
   let sizeCopy = new THREE.Vector3(
     sceneObject.size.x / 2,
     sceneObject.size.y / 2,
@@ -68,15 +59,17 @@ function addStaticBoxCollider(
 
 function addSphereCollider(sceneObject, world, sceneActorArray) {
   sceneObject.shape = new CANNON.Sphere(1);
-  sceneObject.mass = 10;
+  sceneObject.mass = 60;
   sceneObject.body = new CANNON.Body({
-    mass: 10,
+    mass: 60,
   });
 
   sceneObject.body.addShape(sceneObject.shape);
 
   sceneObject.body.position.copy(sceneObject.mesh.position);
   sceneObject.body.quaternion.copy(sceneObject.mesh.quaternion);
+
+  sceneObject.body.updateAABB();
 
   world.addBody(sceneObject.body);
   sceneActorArray.push(sceneObject);
