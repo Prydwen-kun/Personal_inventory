@@ -2,39 +2,12 @@ import * as CANNON from "cannon-es";
 import * as THREE from "..//three.js-master/build/three.module.js";
 function initCannon() {
   const world = new CANNON.World({
-    gravity: new CANNON.Vec3(0, -9.82, 0), // m/s²
+    gravity: new CANNON.Vec3(0, -9.82, 0),
+    defaultContactMaterial: { restitution: 0, friction: 0.8 },
   });
-
-  world.defaultMaterial = new CANNON.Material("defaultMaterial", {
-    friction: 0.8,
-    restitution: 0,
-  });
-
-  //ADD MATERIAL
-  const floorMaterial = new CANNON.Material("floorMaterial", {
-    friction: 0.8,
-    restitution: 0.1,
-  });
-  const characterMaterial = new CANNON.Material("characterMaterial", {
-    friction: 0.8,
-    restitution: 0.1,
-  });
-
-  //ADD contact between material
-  const floorToCharacter = new CANNON.ContactMaterial(
-    floorMaterial,
-    characterMaterial,
-    { friction: 0.8, restitution: 0.1 }
-  );
-  world.addContactMaterial(floorToCharacter);
-
-  // world.broadphase = new CANNON.NaiveBroadphase();//need to look into this shit
-  // world.solver.iterations = 10;
 
   return {
     world: world,
-    floorMaterial: floorMaterial,
-    characterMaterial: characterMaterial,
   };
 }
 
@@ -42,7 +15,6 @@ function addBoxCollider(
   sceneObject,
   world,
   sceneActorArray,
-  characterMaterial
 ) {
   let sizeCopy = new THREE.Vector3(
     sceneObject.size.x / 2,
@@ -53,7 +25,6 @@ function addBoxCollider(
   sceneObject.mass = 60;
   sceneObject.body = new CANNON.Body({
     mass: 60,
-    material: characterMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);
@@ -65,18 +36,13 @@ function addBoxCollider(
 
   world.addBody(sceneObject.body);
   sceneActorArray.push(sceneObject);
-  //   {
-  //     mesh: sceneObject.mesh,
-  //     collider: sceneObject.body,
-  //     type: "dynamic",
-  //   }
+  
 }
 
 function addStaticBoxCollider(
   sceneObject,
   world,
-  sceneObjectArray,
-  floorMaterial
+  sceneObjectArray
 ) {
   let sizeCopy = new THREE.Vector3(
     sceneObject.size.x / 2,
@@ -87,7 +53,6 @@ function addStaticBoxCollider(
   sceneObject.mass = 0;
   sceneObject.body = new CANNON.Body({
     mass: 0,
-    material: floorMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);

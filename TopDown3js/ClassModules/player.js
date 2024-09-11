@@ -106,21 +106,20 @@ class player {
     };
 
     //direction debug + normalizedDirection update
-    this.camera.getWorldDirection(this.direction); //change to body direction ?
+    this.camera.getWorldDirection(this.direction);
     this.normalizedDirection = this.direction.clone().normalize();
-    this.cannonNormalizedDirection = new CANNON.Vec3(
-      this.normalizedDirection.x,
-      this.normalizedDirection.y,
-      this.normalizedDirection.z
+
+    this.body.quaternion.setFromAxisAngle(
+      new CANNON.Vec3(0, 1, 0),
+      this.camera.quaternion.w
     );
-    // console.log("PC direction :", this.direction);
 
     ////UPDATE RAYGROUP//////
     this.rayGroup.updateRayGroup(
       new THREE.Vector3(
-        this.mesh.position.x,
-        this.mesh.position.y,
-        this.mesh.position.z
+        this.body.position.x,
+        this.body.position.y,
+        this.body.position.z
       ),
       this.normalizedDirection,
       world
@@ -131,60 +130,40 @@ class player {
       ////UP////
       if (this.keymap["KeyW"] == true) {
         this.body.applyImpulse(
-          this.body.position
-            .clone()
-            .addScaledVector(
-              this.velocity * delta,
-              new CANNON.Quaternion()
-                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), 0)
-                .vmult(this.cannonNormalizedDirection.clone())
-            ),
-          this.body.position
+          this.direction
+            .applyAxisAngle(new THREE.Vector3(0, 1, 0), 0)
+            .multiplyScalar(this.velocity),
+          new CANNON.Vec3(0, 0, 0)
         );
       }
 
       ////BACK////
       if (this.keymap["KeyS"] == true) {
         this.body.applyImpulse(
-          this.body.position
-            .clone()
-            .addScaledVector(
-              this.velocity * delta,
-              new CANNON.Quaternion()
-                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI)
-                .vmult(this.cannonNormalizedDirection.clone())
-            ),
-          this.body.position
+          this.direction
+            .applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)
+            .multiplyScalar(this.velocity),
+          new CANNON.Vec3(0, 0, 0)
         );
       }
 
       //LEFT
       if (this.keymap["KeyA"] == true) {
         this.body.applyImpulse(
-          this.body.position
-            .clone()
-            .addScaledVector(
-              this.velocity * delta,
-              new CANNON.Quaternion()
-                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2)
-                .vmult(this.cannonNormalizedDirection.clone())
-            ),
-          this.body.position
+          this.direction
+            .applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
+            .multiplyScalar(this.velocity),
+          new CANNON.Vec3(0, 0, 0)
         );
       }
 
       //RIGHT
       if (this.keymap["KeyD"] == true) {
         this.body.applyImpulse(
-          this.body.position
-            .clone()
-            .addScaledVector(
-              this.velocity * delta,
-              new CANNON.Quaternion()
-                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -(Math.PI / 2))
-                .vmult(this.cannonNormalizedDirection.clone())
-            ),
-          this.body.position
+          this.direction
+            .applyAxisAngle(new THREE.Vector3(0, 1, 0), -(Math.PI / 2))
+            .multiplyScalar(this.velocity),
+          new CANNON.Vec3(0, 0, 0)
         );
       }
     }
@@ -224,13 +203,12 @@ class player {
 
     //UPDATE CAMERA AND COLLIDER POSITION
 
-    // this.body.position.copy(
-    //   new THREE.Vector3(
-    //     this.camera.position.x,
-    //     this.body.position.y,
-    //     this.camera.position.z
-    //   )
-    // );
+    //clamp velocity
+    // if (this.body.velocity.length() >= this.velocity) {
+    //   this.body.velocity.normalize();
+    //   this.body.velocity.scale(this.velocity);
+    // }
+
     this.camera.position.copy(
       new THREE.Vector3(
         this.body.position.x,
@@ -239,7 +217,7 @@ class player {
       )
     );
     this.body.quaternion.setFromAxisAngle(
-      new THREE.Vector3(0, 1, 0),
+      new CANNON.Vec3(0, 1, 0),
       this.camera.quaternion.w
     );
     // this.camera.position.y += 0.75;

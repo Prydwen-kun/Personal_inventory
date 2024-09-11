@@ -31,13 +31,9 @@ document.getElementById("game_container").appendChild(renderer.domElement);
 let sceneObjectArray = [];
 let sceneActorArray = [];
 
-const CannonInitObject = CANNON_INIT.initCannon();
-const world = CannonInitObject.world;
-const floorMaterial = CannonInitObject.floorMaterial;
-const characterMaterial = CannonInitObject.characterMaterial;
+const world = CANNON_INIT.initCannon().world;
 
-console.log("cannoninitobject : ", CannonInitObject);
-console.log("world contact material : ", world.contactmaterials);
+console.log("world contact material : ", world.defaultContactMaterial);
 
 //TEXTURE LOADER
 const loader = new THREE.TextureLoader();
@@ -69,7 +65,7 @@ cube.position.x = -10;
 
 /////////////////////INIT MAP/////////////////
 const map1 = new MAP.map(scene, loader);
-map1.generateMapCollider(world, sceneObjectArray, floorMaterial);
+map1.generateMapCollider(world, sceneObjectArray);
 
 //AMBIENT LIGHT
 const light = new THREE.AmbientLight(0xcccccc); // soft white light
@@ -95,8 +91,8 @@ scene.add(helperLight);
 directionalLight.target.updateMatrixWorld();
 
 //helper
-const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
-scene.add(helper);
+// const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
+// scene.add(helper);
 
 //camera position + player starting pos
 camera.position.z = 5;
@@ -132,7 +128,7 @@ scene.add(player1.getPlayerControls().getObject());
 /////////////////CANNON INIT////////////
 //array of all scene object to process collision
 
-CANNON_INIT.addBoxCollider(player1, world, sceneActorArray, characterMaterial);
+CANNON_INIT.addBoxCollider(player1, world, sceneActorArray);
 
 /////////////////CANNON INIT////////////
 console.log("scene actor array : ", sceneActorArray);
