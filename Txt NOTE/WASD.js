@@ -34,25 +34,40 @@ this.body.applyImpulse(
 
 //BACKWARD
 this.body.applyImpulse(
-  new CANNON.Quaternion()
-    .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI)
-    .vmult(this.cannonNormalizedDirection),
+  this.body.position
+    .clone()
+    .addScaledVector(
+      this.velocity * delta,
+      new CANNON.Quaternion()
+        .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI)
+        .vmult(this.cannonNormalizedDirection)
+    ),
   this.body.position
 );
 
 //LEFT
 this.body.applyImpulse(
-  new CANNON.Quaternion()
-    .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2)
-    .vmult(this.cannonNormalizedDirection),
+  this.body.position
+    .clone()
+    .addScaledVector(
+      this.velocity * delta,
+      new CANNON.Quaternion()
+        .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2)
+        .vmult(this.cannonNormalizedDirection)
+    ),
   this.body.position
 );
 
 //RIGHT
 this.body.applyImpulse(
-  new CANNON.Quaternion()
-    .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -(Math.PI / 2))
-    .vmult(this.cannonNormalizedDirection),
+  this.body.position
+    .clone()
+    .addScaledVector(
+      this.velocity * delta,
+      new CANNON.Quaternion()
+        .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -(Math.PI / 2))
+        .vmult(this.cannonNormalizedDirection)
+    ),
   this.body.position
 );
 

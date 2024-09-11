@@ -7,7 +7,7 @@ class player {
   constructor(name, camera, domElement, clock) {
     this.name = name;
     this.controls = new PointerLockControls(camera, domElement);
-    this.controls.pointerSpeed = 1;//pointer Speed Option to set
+    this.controls.pointerSpeed = 1; //pointer Speed Option to set
     this.renderCanvas = domElement;
     this.camera = camera;
     this.clock = clock;
@@ -40,6 +40,11 @@ class player {
     this.direction = new THREE.Vector3(0, 0, 0);
     this.camera.getWorldDirection(this.direction);
     this.normalizedDirection = this.direction.clone().normalize();
+    this.cannonNormalizedDirection = new CANNON.Vec3(
+      this.normalizedDirection.x,
+      this.normalizedDirection.y,
+      this.normalizedDirection.z
+    );
     console.log("PC direction :", this.direction);
     //Keymap
     this.keymap = {};
@@ -101,8 +106,13 @@ class player {
     };
 
     //direction debug + normalizedDirection update
-    this.camera.getWorldDirection(this.direction);
+    this.camera.getWorldDirection(this.direction); //change to body direction ?
     this.normalizedDirection = this.direction.clone().normalize();
+    this.cannonNormalizedDirection = new CANNON.Vec3(
+      this.normalizedDirection.x,
+      this.normalizedDirection.y,
+      this.normalizedDirection.z
+    );
     // console.log("PC direction :", this.direction);
 
     ////UPDATE RAYGROUP//////
@@ -119,73 +129,63 @@ class player {
 
     if (this.body !== null) {
       ////UP////
-      if (
-        this.keymap["KeyW"] == true &&
-        !this.rayGroup.forwardRay.hasHit &&
-        !this.rayGroup.forwardLeftRay.hasHit &&
-        !this.rayGroup.forwardRightRay.hasHit
-      ) {
-        // this.body.applyForce(playerDirectionNormal.multiplyScalar(this.velocity), this.mesh.position);
-        this.controls.moveForward(this.velocity * delta);
-      } else if (
-        this.keymap["KeyW"] == true &&
-        (this.rayGroup.forwardRay.hasHit ||
-          this.rayGroup.forwardLeftRay.hasHit ||
-          this.rayGroup.forwardRightRay.hasHit)
-      ) {
-        this.controls.moveForward(this.velocity * delta * -1);
+      if (this.keymap["KeyW"] == true) {
+        this.body.applyImpulse(
+          this.body.position
+            .clone()
+            .addScaledVector(
+              this.velocity * delta,
+              new CANNON.Quaternion()
+                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), 0)
+                .vmult(this.cannonNormalizedDirection.clone())
+            ),
+          this.body.position
+        );
       }
 
       ////BACK////
-      if (
-        this.keymap["KeyS"] == true &&
-        !this.rayGroup.backwardRay.hasHit &&
-        !this.rayGroup.backwardLeftRay.hasHit &&
-        !this.rayGroup.backwardRightRay.hasHit
-      ) {
-        // this.body.applyForce(playerDirectionNormal.multiplyScalar(-this.velocity), this.mesh.position);
-        this.controls.moveForward(this.velocity * delta * -1);
-      } else if (
-        this.keymap["KeyS"] == true &&
-        (this.rayGroup.backwardRay.hasHit ||
-          this.rayGroup.backwardLeftRay.hasHit ||
-          this.rayGroup.backwardRightRay.hasHit)
-      ) {
-        this.controls.moveForward(this.velocity * delta);
+      if (this.keymap["KeyS"] == true) {
+        this.body.applyImpulse(
+          this.body.position
+            .clone()
+            .addScaledVector(
+              this.velocity * delta,
+              new CANNON.Quaternion()
+                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI)
+                .vmult(this.cannonNormalizedDirection.clone())
+            ),
+          this.body.position
+        );
       }
 
       //LEFT
-      if (
-        this.keymap["KeyA"] == true &&
-        !this.rayGroup.leftRay.hasHit &&
-        !this.rayGroup.forwardLeftRay.hasHit &&
-        !this.rayGroup.backwardLeftRay.hasHit
-      ) {
-        this.controls.moveRight(this.velocity * delta * -1);
-      } else if (
-        this.keymap["KeyA"] == true &&
-        (this.rayGroup.leftRay.hasHit ||
-          this.rayGroup.forwardLeftRay.hasHit ||
-          this.rayGroup.backwardLeftRay.hasHit)
-      ) {
-        this.controls.moveRight(this.velocity * delta);
+      if (this.keymap["KeyA"] == true) {
+        this.body.applyImpulse(
+          this.body.position
+            .clone()
+            .addScaledVector(
+              this.velocity * delta,
+              new CANNON.Quaternion()
+                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2)
+                .vmult(this.cannonNormalizedDirection.clone())
+            ),
+          this.body.position
+        );
       }
 
       //RIGHT
-      if (
-        this.keymap["KeyD"] == true &&
-        !this.rayGroup.rightRay.hasHit &&
-        !this.rayGroup.forwardRightRay.hasHit &&
-        !this.rayGroup.backwardRightRay.hasHit
-      ) {
-        this.controls.moveRight(this.velocity * delta);
-      } else if (
-        this.keymap["KeyD"] == true &&
-        (this.rayGroup.rightRay.hasHit ||
-          this.rayGroup.forwardRightRay.hasHit ||
-          this.rayGroup.backwardRightRay.hasHit)
-      ) {
-        this.controls.moveRight(this.velocity * delta * -1);
+      if (this.keymap["KeyD"] == true) {
+        this.body.applyImpulse(
+          this.body.position
+            .clone()
+            .addScaledVector(
+              this.velocity * delta,
+              new CANNON.Quaternion()
+                .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -(Math.PI / 2))
+                .vmult(this.cannonNormalizedDirection.clone())
+            ),
+          this.body.position
+        );
       }
     }
 
@@ -224,18 +224,18 @@ class player {
 
     //UPDATE CAMERA AND COLLIDER POSITION
 
-    this.body.position.copy(
-      new THREE.Vector3(
-        this.camera.position.x,
-        this.body.position.y,
-        this.camera.position.z
-      )
-    );
+    // this.body.position.copy(
+    //   new THREE.Vector3(
+    //     this.camera.position.x,
+    //     this.body.position.y,
+    //     this.camera.position.z
+    //   )
+    // );
     this.camera.position.copy(
       new THREE.Vector3(
-        this.camera.position.x,
+        this.body.position.x,
         this.body.position.y + 0.75,
-        this.camera.position.z
+        this.body.position.z
       )
     );
     this.body.quaternion.setFromAxisAngle(
