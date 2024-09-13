@@ -108,19 +108,11 @@ class player {
 
     //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
-    if (this.direction.y >= 0.5) {
-      this.normalizedDirection = new THREE.Vector3(
-        Math.ceil(this.direction.x),
-        0,
-        Math.ceil(this.direction.z)
-      );
-    } else {
-      this.normalizedDirection = new THREE.Vector3(
-        Math.round(this.direction.x),
-        0,
-        Math.round(this.direction.z)
-      );
-    }
+    this.normalizedDirection = new CANNON.Vec3(
+      this.direction.x,
+      0,
+      this.direction.z
+    );
 
     console.log("this body velocity", this.body.velocity);
 
@@ -145,37 +137,40 @@ class player {
       ////UP////
 
       if (this.keymap["KeyW"] == true) {
-        this.body.velocity = new CANNON.Vec3(
-          this.normalizedDirection.multiplyScalar(this.velocity * delta)
-        );
+        this.body.velocity = this.normalizedDirection.scale(this.velocity);
       }
 
       ////BACK////
       if (this.keymap["KeyS"] == true) {
-        this.body.applyImpulse(
-          this.normalizedDirection.multiplyScalar(-this.velocity),
-          new CANNON.Vec3(0, 0, 0)
-        );
+        this.body.velocity = this.normalizedDirection.scale(-this.velocity);
       }
 
       //LEFT
       if (this.keymap["KeyA"] == true) {
-        this.body.applyImpulse(
-          this.normalizedDirection
-            .applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
-            .multiplyScalar(this.velocity),
-          new CANNON.Vec3(0, 0, 0)
-        );
+        let posToCannon = new THREE.Vector3(
+          this.normalizedDirection.x,
+          this.normalizedDirection.y,
+          this.normalizedDirection.z
+        ).applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
+        this.body.velocity = new CANNON.Vec3(
+          posToCannon.x,
+          posToCannon.y,
+          posToCannon.z
+        ).scale(this.velocity);
       }
 
       //RIGHT
       if (this.keymap["KeyD"] == true) {
-        this.body.applyImpulse(
-          this.normalizedDirection
-            .applyAxisAngle(new THREE.Vector3(0, 1, 0), -(Math.PI / 2))
-            .multiplyScalar(this.velocity),
-          new CANNON.Vec3(0, 0, 0)
-        );
+        let posToCannon = new THREE.Vector3(
+          this.normalizedDirection.x,
+          this.normalizedDirection.y,
+          this.normalizedDirection.z
+        ).applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
+        this.body.velocity = new CANNON.Vec3(
+          posToCannon.x,
+          posToCannon.y,
+          posToCannon.z
+        ).scale(-this.velocity);
       }
     }
 
