@@ -108,7 +108,7 @@ class player {
 
     //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
-    if (this.direction.y >= 5) {
+    if (this.direction.y >= 0.5) {
       this.normalizedDirection = new THREE.Vector3(
         Math.ceil(this.direction.x),
         0,
@@ -122,9 +122,8 @@ class player {
       );
     }
 
-    console.log("this direction : ", this.normalizedDirection);
-    // console.log("this velocity: ", this.body.velocity);
-    // console.log("this body: ", this.body.position);
+    console.log("this body velocity", this.body.velocity);
+
     this.body.quaternion.setFromAxisAngle(
       new CANNON.Vec3(0, 1, 0),
       this.camera.quaternion.w
@@ -141,13 +140,13 @@ class player {
       world
     );
     ////UPDATE RAYGROUP//////
-    console.log("this.direction : ", this.direction);
+
     if (this.body !== null) {
       ////UP////
+
       if (this.keymap["KeyW"] == true) {
-        this.body.applyImpulse(
-          this.normalizedDirection.multiplyScalar(this.velocity),
-          new CANNON.Vec3(0, 0, 0)
+        this.body.velocity = new CANNON.Vec3(
+          this.normalizedDirection.multiplyScalar(this.velocity * delta)
         );
       }
 
