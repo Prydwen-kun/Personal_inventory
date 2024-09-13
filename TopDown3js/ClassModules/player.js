@@ -202,13 +202,17 @@ class player {
 
     if (typeof this.body !== undefined) {
       //////JUMP//////
-      floorArray.forEach((floor) => {
-        if (this.body.aabb.overlaps(floor.body.aabb)) {
-          this.touchFloor = true;
-        }
-      });
+      console.log(
+        "top hit:",
+        this.rayGroup.topRay.hasHit,
+        "bottom hit :",
+        this.rayGroup.bottomRay.hasHit
+      );
+      if (this.rayGroup.bottomRay.hasHit) {
+        this.touchFloor = true;
+      }
 
-      if (this.keymap["Space"] == true) {
+      if (this.keymap["Space"] == true && !this.rayGroup.topRay.hasHit) {
         if (!this.jumping && this.touchFloor) {
           //add vertical impulse
           this.body.applyImpulse(
