@@ -33,6 +33,7 @@ let sceneActorArray = [];
 
 const world = CANNON_INIT.initCannon().world;
 
+
 console.log("world contact material : ", world.defaultContactMaterial);
 
 //TEXTURE LOADER

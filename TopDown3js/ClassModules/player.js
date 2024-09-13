@@ -108,7 +108,11 @@ class player {
     //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
     this.normalizedDirection = this.direction.clone().normalize();
+    this.direction.set(this.direction.x, 0, this.direction.z);
 
+    console.log("this direction : ", this.direction);
+    // console.log("this velocity: ", this.body.velocity);
+    console.log("this body: ", this.body.position);
     this.body.quaternion.setFromAxisAngle(
       new CANNON.Vec3(0, 1, 0),
       this.camera.quaternion.w

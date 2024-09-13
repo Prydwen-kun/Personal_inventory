@@ -5,6 +5,13 @@ function initCannon() {
     gravity: new CANNON.Vec3(0, -9.82, 0),
     defaultContactMaterial: { restitution: 0, friction: 0.8 },
   });
+  world.defaultMaterial.friction = 0.8;
+  world.defaultMaterial.restitution = 0;
+  world.defaultContactMaterial.materials[0] = world.defaultMaterial;
+  world.defaultContactMaterial.materials[1] = world.defaultMaterial;
+  world.defaultContactMaterial.friction = 0.8;
+  world.defaultContactMaterial.restitution = 0;
+  world.addContactMaterial(world.defaultContactMaterial);
 
   return {
     world: world,
@@ -21,6 +28,7 @@ function addBoxCollider(sceneObject, world, sceneActorArray) {
   sceneObject.mass = 60;
   sceneObject.body = new CANNON.Body({
     mass: 60,
+    material: world.defaultMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);
@@ -44,6 +52,7 @@ function addStaticBoxCollider(sceneObject, world, sceneObjectArray) {
   sceneObject.mass = 0;
   sceneObject.body = new CANNON.Body({
     mass: 0,
+    material: world.defaultMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);
@@ -62,6 +71,7 @@ function addSphereCollider(sceneObject, world, sceneActorArray) {
   sceneObject.mass = 60;
   sceneObject.body = new CANNON.Body({
     mass: 60,
+    material: world.defaultMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);

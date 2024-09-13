@@ -25,6 +25,20 @@ class rayGroup {
     this.backLeftResult = new CANNON.RaycastResult();
     this.backRightResult = new CANNON.RaycastResult();
 
+    this.topResult = new CANNON.RaycastResult();
+
+    this.topRay = new CANNON.Ray(
+      this.cannonPosition,
+      this.cannonPosition
+        .clone()
+        .addScaledVector(
+          this.rayLength,
+          new CANNON.Quaternion()
+            .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -(Math.PI / 2))
+            .vmult(this.cannonNormalizedDirection.clone())
+        )
+    );
+
     this.forwardRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -120,6 +134,15 @@ class rayGroup {
     );
     //DEBUG
     // console.log("Debug raygroup :", this);
+    this.topRay.from = this.cannonPosition;
+    this.topRay.to = this.cannonPosition
+      .clone()
+      .addScaledVector(
+        this.rayLength,
+        new CANNON.Quaternion()
+          .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -(Math.PI / 2))
+          .vmult(this.cannonNormalizedDirection.clone())
+      );
 
     this.forwardRay.from = this.cannonPosition;
     this.forwardRay.to = this.cannonPosition
