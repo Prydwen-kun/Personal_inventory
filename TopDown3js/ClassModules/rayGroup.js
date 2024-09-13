@@ -26,7 +26,9 @@ class rayGroup {
     this.backRightResult = new CANNON.RaycastResult();
 
     this.topResult = new CANNON.RaycastResult();
+    this.bottomResult = new CANNON.RaycastResult();
 
+    //for jumping
     this.topRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -38,7 +40,21 @@ class rayGroup {
             .vmult(this.cannonNormalizedDirection.clone())
         )
     );
+    this.topRay.skipBackfaces = true;
 
+    this.bottomRay = new CANNON.Ray(
+      this.cannonPosition,
+      this.cannonPosition
+        .clone()
+        .addScaledVector(
+          this.rayLength,
+          new CANNON.Quaternion()
+            .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
+            .vmult(this.cannonNormalizedDirection.clone())
+        )
+    );
+    this.bottomRay.skipBackfaces = true;
+    //for jumping
     this.forwardRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -144,6 +160,16 @@ class rayGroup {
           .vmult(this.cannonNormalizedDirection.clone())
       );
 
+    this.bottomRay.from = this.cannonPosition;
+    this.bottomRay.to = this.cannonPosition
+      .clone()
+      .addScaledVector(
+        this.rayLength,
+        new CANNON.Quaternion()
+          .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
+          .vmult(this.cannonNormalizedDirection.clone())
+      );
+
     this.forwardRay.from = this.cannonPosition;
     this.forwardRay.to = this.cannonPosition
       .clone()
@@ -217,6 +243,14 @@ class rayGroup {
       );
 
     //UPDATE RAY RESULTS
+    this.topRay.intersectWorld(world, {
+      mode: CANNON.RAY_MODES.ALL,
+      result: this.topResult,
+    });
+    this.bottomRay.intersectWorld(world, {
+      mode: CANNON.RAY_MODES.ALL,
+      result: this.bottomResult,
+    });
 
     this.forwardRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,

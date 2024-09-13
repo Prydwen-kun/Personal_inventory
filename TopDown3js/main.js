@@ -96,8 +96,8 @@ directionalLight.target.updateMatrixWorld();
 // scene.add(helper);
 
 //camera position + player starting pos
-camera.position.z = 5;
-camera.position.y = 1.75;
+camera.position.z = 0;
+camera.position.y = 2;
 
 //PLAYER
 const player1 = new PLAYER.player("P1", camera, renderer.domElement, clock);

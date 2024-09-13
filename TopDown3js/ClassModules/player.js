@@ -8,6 +8,8 @@ class player {
     this.name = name;
     this.controls = new PointerLockControls(camera, domElement);
     this.controls.pointerSpeed = 1; //pointer Speed Option to set
+    this.controls.maxPolarAngle = Math.PI - 0.01;
+    this.controls.minPolarAngle = 0 + 0.01;
     this.renderCanvas = domElement;
     this.camera = camera;
     this.clock = clock;
@@ -39,13 +41,12 @@ class player {
 
     this.direction = new THREE.Vector3(0, 0, 0);
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = this.direction.clone().normalize();
-    this.cannonNormalizedDirection = new CANNON.Vec3(
-      this.normalizedDirection.x,
-      this.normalizedDirection.y,
-      this.normalizedDirection.z
+    this.normalizedDirection = new CANNON.Vec3(
+      this.direction.x,
+      0,
+      this.direction.z
     );
-    console.log("PC direction :", this.direction);
+
     //Keymap
     this.keymap = {};
 
@@ -54,9 +55,9 @@ class player {
     this.touchFloor = false;
 
     //RAY GROUP
-    this.rayLength = 0.5;
+    this.rayLength = 2.01;
     this.rayGroup = new RAYGROUP.rayGroup(
-      0.5,
+      this.rayLength,
       this.mesh.position,
       this.normalizedDirection
     );
@@ -107,12 +108,15 @@ class player {
 
     //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = this.direction.clone().normalize();
-    this.direction.set(this.direction.x, 0, this.direction.z);
+    this.normalizedDirection = new THREE.Vector3(
+      Math.round(this.direction.x),
+      0,
+      Math.round(this.direction.z)
+    );
 
-    console.log("this direction : ", this.direction);
+    console.log("this direction : ", this.normalizedDirection);
     // console.log("this velocity: ", this.body.velocity);
-    console.log("this body: ", this.body.position);
+    // console.log("this body: ", this.body.position);
     this.body.quaternion.setFromAxisAngle(
       new CANNON.Vec3(0, 1, 0),
       this.camera.quaternion.w
@@ -129,14 +133,12 @@ class player {
       world
     );
     ////UPDATE RAYGROUP//////
-
+    console.log("this.direction : ", this.direction);
     if (this.body !== null) {
       ////UP////
       if (this.keymap["KeyW"] == true) {
         this.body.applyImpulse(
-          this.direction
-            .applyAxisAngle(new THREE.Vector3(0, 1, 0), 0)
-            .multiplyScalar(this.velocity),
+          this.normalizedDirection.multiplyScalar(this.velocity),
           new CANNON.Vec3(0, 0, 0)
         );
       }
@@ -144,9 +146,7 @@ class player {
       ////BACK////
       if (this.keymap["KeyS"] == true) {
         this.body.applyImpulse(
-          this.direction
-            .applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)
-            .multiplyScalar(this.velocity),
+          this.normalizedDirection.multiplyScalar(-this.velocity),
           new CANNON.Vec3(0, 0, 0)
         );
       }
@@ -154,7 +154,7 @@ class player {
       //LEFT
       if (this.keymap["KeyA"] == true) {
         this.body.applyImpulse(
-          this.direction
+          this.normalizedDirection
             .applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
             .multiplyScalar(this.velocity),
           new CANNON.Vec3(0, 0, 0)
@@ -164,7 +164,7 @@ class player {
       //RIGHT
       if (this.keymap["KeyD"] == true) {
         this.body.applyImpulse(
-          this.direction
+          this.normalizedDirection
             .applyAxisAngle(new THREE.Vector3(0, 1, 0), -(Math.PI / 2))
             .multiplyScalar(this.velocity),
           new CANNON.Vec3(0, 0, 0)
@@ -181,13 +181,22 @@ class player {
 
     if (typeof this.body !== undefined) {
       //////JUMP//////
-      floorArray.forEach((floor) => {
-        if (this.body.aabb.overlaps(floor.body.aabb)) {
-          this.touchFloor = true;
-        }
-      });
+      // floorArray.forEach((floor) => {
+      //   if (this.body.aabb.overlaps(floor.body.aabb)) {
+      //     this.touchFloor = true;
+      //   }
+      // });
+      console.log(
+        "top hit:",
+        this.rayGroup.topRay.hasHit,
+        "bottom hit :",
+        this.rayGroup.bottomRay.hasHit
+      );
+      if (this.rayGroup.bottomRay.hasHit) {
+        this.touchFloor = true;
+      }
 
-      if (this.keymap["Space"] == true) {
+      if (this.keymap["Space"] == true && !this.rayGroup.topRay.hasHit) {
         if (!this.jumping && this.touchFloor) {
           //add vertical impulse
           this.body.applyImpulse(
