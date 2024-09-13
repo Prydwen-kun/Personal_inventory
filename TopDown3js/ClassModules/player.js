@@ -7,7 +7,7 @@ class player {
   constructor(name, camera, domElement, clock) {
     this.name = name;
     this.controls = new PointerLockControls(camera, domElement);
-    this.controls.pointerSpeed = 1;//pointer Speed Option to set
+    this.controls.pointerSpeed = 1; //pointer Speed Option to set
     this.renderCanvas = domElement;
     this.camera = camera;
     this.clock = clock;
@@ -102,7 +102,11 @@ class player {
 
     //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = this.direction.clone().normalize();
+    this.normalizedDirection = new THREE.Vector3(
+      this.direction.x,
+      0,
+      this.direction.z
+    );
     // console.log("PC direction :", this.direction);
 
     ////UPDATE RAYGROUP//////
