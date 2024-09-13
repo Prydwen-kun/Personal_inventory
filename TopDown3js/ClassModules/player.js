@@ -108,11 +108,19 @@ class player {
 
     //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = new THREE.Vector3(
-      Math.round(this.direction.x),
-      0,
-      Math.round(this.direction.z)
-    );
+    if (this.direction.y >= 5) {
+      this.normalizedDirection = new THREE.Vector3(
+        Math.ceil(this.direction.x),
+        0,
+        Math.ceil(this.direction.z)
+      );
+    } else {
+      this.normalizedDirection = new THREE.Vector3(
+        Math.round(this.direction.x),
+        0,
+        Math.round(this.direction.z)
+      );
+    }
 
     console.log("this direction : ", this.normalizedDirection);
     // console.log("this velocity: ", this.body.velocity);
