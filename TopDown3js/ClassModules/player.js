@@ -51,7 +51,7 @@ class player {
     //RAY GROUP
     this.rayLength = 0.5;
     this.rayGroup = new RAYGROUP.rayGroup(
-      0.5,
+      this.rayLength,
       this.mesh.position,
       this.normalizedDirection
     );
