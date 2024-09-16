@@ -55,7 +55,7 @@ class player {
     this.touchFloor = false;
 
     //RAY GROUP
-    this.rayLength = 2;
+    this.rayLength = 1.5;
     this.rayGroup = new RAYGROUP.rayGroup(
       this.rayLength,
       this.mesh.position,
@@ -126,11 +126,10 @@ class player {
       this.direction.z
     );
 
-    console.log("camera :", this.camera.position);
-    console.log("mesh :", this.mesh.position);
-    console.log("this direction", this.direction);
-
-    console.log("this mesh direction", this.normalizedDirection);
+    // console.log("camera :", this.camera.position);
+    // console.log("mesh :", this.mesh.position);
+    // console.log("this direction", this.direction);
+    // console.log("this mesh direction", this.normalizedDirection);
 
     this.camera.position.copy(
       new THREE.Vector3(
@@ -149,6 +148,11 @@ class player {
       ),
       this.normalizedDirection,
       world
+    );
+    console.log(
+      "ray group :",
+      this.rayGroup.bottomRay.hasHit,
+      this.rayGroup.topRay.hasHit
     );
     ////UPDATE RAYGROUP//////
 
@@ -202,17 +206,12 @@ class player {
 
     if (typeof this.body !== undefined) {
       //////JUMP//////
-      // floorArray.forEach((floor) => {
-      //   if (this.body.aabb.overlaps(floor.body.aabb)) {
-      //     this.touchFloor = true;
-      //   }
-      // });
 
       if (this.rayGroup.bottomRay.hasHit) {
         this.touchFloor = true;
       }
 
-      if (this.keymap["Space"] == true && !this.rayGroup.topRay.hasHit) {
+      if (this.keymap["Space"] == true) {
         if (!this.jumping && this.touchFloor) {
           //add vertical impulse
           this.body.applyImpulse(
@@ -223,8 +222,7 @@ class player {
         }
       }
 
-      if (this.jumping && this.touchFloor) {
-        // this.body.velocity = new CANNON.Vec3(0, 0, 0);
+      if (this.touchFloor) {
         this.jumping = false;
       }
       this.touchFloor = false;
