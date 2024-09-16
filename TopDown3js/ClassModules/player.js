@@ -41,11 +41,7 @@ class player {
 
     this.direction = new THREE.Vector3(0, 0, 0);
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = new CANNON.Vec3(
-      this.direction.x,
-      0,
-      this.direction.z
-    );
+    this.normalizedDirection = new CANNON.Vec3(0, 0, 0);
 
     //Keymap
     this.keymap = {};
@@ -107,9 +103,9 @@ class player {
     };
 
     //direction debug + normalizedDirection update
-    this.camera.getWorldDirection(this.direction);
+
     //change body rotation
-    this.body.quaternion.setFromEuler(0, this.camera.rotation.y, 0);
+    this.body.quaternion.setFromEuler(this.camera.rotation.y, 0, 0, "YXZ");
     this.mesh.setRotationFromQuaternion(
       new THREE.Quaternion(
         this.body.quaternion.x,
@@ -119,8 +115,16 @@ class player {
       )
     );
     //rotate unit direction vector from body
-    this.mesh.getWorldDirection(this.normalizedDirection);
-    
+    this.mesh.getWorldDirection(this.direction);
+    this.normalizedDirection = new CANNON.Vec3(
+      this.direction.x,
+      0,
+      this.direction.z
+    );
+
+    console.log("camera euler :", this.camera.rotation);
+    console.log("this direction", this.direction);
+    console.log("this body", this.body.quaternion);
 
     console.log("this mesh direction", this.normalizedDirection);
 
@@ -199,14 +203,7 @@ class player {
       //     this.touchFloor = true;
       //   }
       // });
-      console.log(
-        "top hit:",
-        this.rayGroup.topRay.hasHit,
-        "bottom hit :",
-        this.rayGroup.bottomRay.hasHit,
-        "debug ray group :",
-        this.rayGroup
-      );
+
       if (this.rayGroup.bottomRay.hasHit) {
         this.touchFloor = true;
       }
