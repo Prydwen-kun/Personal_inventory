@@ -8,8 +8,8 @@ class player {
     this.name = name;
     this.controls = new PointerLockControls(camera, domElement);
     this.controls.pointerSpeed = 1; //pointer Speed Option to set
-    this.controls.maxPolarAngle = Math.PI - 0.01;
-    this.controls.minPolarAngle = 0 + 0.01;
+    // this.controls.maxPolarAngle = Math.PI - 0.01;
+    // this.controls.minPolarAngle = 0 + 0.01;
     this.renderCanvas = domElement;
     this.camera = camera;
     this.clock = clock;
@@ -35,13 +35,17 @@ class player {
       camera.position.z
     );
 
-    console.log("Mesh pos :", this.mesh.position);
+    // console.log("Mesh pos :", this.mesh.position);
     //position and speed
     this.velocity = 10;
 
     this.direction = new THREE.Vector3(0, 0, 0);
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = new CANNON.Vec3(0, 0, 0);
+    this.normalizedDirection = new CANNON.Vec3(0, 0, -1);
+    this.eulerAngleYXZ = new THREE.Euler().setFromQuaternion(
+      this.camera.quaternion,
+      "YXZ"
+    );
 
     //Keymap
     this.keymap = {};
@@ -51,7 +55,7 @@ class player {
     this.touchFloor = false;
 
     //RAY GROUP
-    this.rayLength = 2.01;
+    this.rayLength = 2;
     this.rayGroup = new RAYGROUP.rayGroup(
       this.rayLength,
       this.mesh.position,
@@ -105,15 +109,15 @@ class player {
     //direction debug + normalizedDirection update
 
     //change body rotation
-    this.body.quaternion.setFromEuler(this.camera.rotation.y, 0, 0, "YXZ");
-    this.mesh.setRotationFromQuaternion(
-      new THREE.Quaternion(
-        this.body.quaternion.x,
-        this.body.quaternion.y,
-        this.body.quaternion.z,
-        this.body.quaternion.w
-      )
+    this.eulerAngleYXZ = new THREE.Euler().setFromQuaternion(
+      this.camera.quaternion,
+      "YXZ"
     );
+    this.body.quaternion.setFromEuler(0, this.eulerAngleYXZ.y, 0, "YXZ");
+    //normalize quaternion
+    // projection of quaternion on plan
+
+    this.mesh.quaternion.copy(this.body.quaternion);
     //rotate unit direction vector from body
     this.mesh.getWorldDirection(this.direction);
     this.normalizedDirection = new CANNON.Vec3(
@@ -122,9 +126,9 @@ class player {
       this.direction.z
     );
 
-    console.log("camera euler :", this.camera.rotation);
+    console.log("camera :", this.camera.position);
+    console.log("mesh :", this.mesh.position);
     console.log("this direction", this.direction);
-    console.log("this body", this.body.quaternion);
 
     console.log("this mesh direction", this.normalizedDirection);
 
@@ -152,12 +156,12 @@ class player {
       ////UP////
 
       if (this.keymap["KeyW"] == true) {
-        this.body.velocity = this.normalizedDirection.scale(this.velocity);
+        this.body.velocity = this.normalizedDirection.scale(-this.velocity);
       }
 
       ////BACK////
       if (this.keymap["KeyS"] == true) {
-        this.body.velocity = this.normalizedDirection.scale(-this.velocity);
+        this.body.velocity = this.normalizedDirection.scale(this.velocity);
       }
 
       //LEFT
@@ -171,7 +175,7 @@ class player {
           posToCannon.x,
           posToCannon.y,
           posToCannon.z
-        ).scale(this.velocity);
+        ).scale(-this.velocity);
       }
 
       //RIGHT
@@ -185,7 +189,7 @@ class player {
           posToCannon.x,
           posToCannon.y,
           posToCannon.z
-        ).scale(-this.velocity);
+        ).scale(this.velocity);
       }
     }
 
@@ -225,18 +229,6 @@ class player {
       }
       this.touchFloor = false;
     }
-
-    //UPDATE CAMERA AND COLLIDER POSITION
-
-    this.camera.position.copy(
-      new THREE.Vector3(
-        this.body.position.x,
-        this.body.position.y + 0.75,
-        this.body.position.z
-      )
-    );
-    this.body.quaternion.setFromEuler(0, this.camera.rotation.y, 0);
-    // this.camera.position.y += 0.75;
   }
 }
 
