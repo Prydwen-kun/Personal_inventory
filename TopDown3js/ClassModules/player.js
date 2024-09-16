@@ -55,7 +55,7 @@ class player {
     this.touchFloor = false;
 
     //RAY GROUP
-    this.rayLength = 1.5;
+    this.rayLength = 1;
     this.rayGroup = new RAYGROUP.rayGroup(
       this.rayLength,
       this.mesh.position,
@@ -122,7 +122,7 @@ class player {
     this.mesh.getWorldDirection(this.direction);
     this.normalizedDirection = new CANNON.Vec3(
       this.direction.x,
-      0,
+      this.direction.y,
       this.direction.z
     );
 
