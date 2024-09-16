@@ -56,7 +56,7 @@ class player {
     this.touchFloor = false;
 
     //RAY GROUP
-    this.rayLength = 1;
+    this.rayLength = 1.05;
     this.rayGroup = new RAYGROUP.rayGroup(
       this.rayLength,
       this.mesh.position,
@@ -127,11 +127,6 @@ class player {
       this.direction.z
     );
 
-    // console.log("camera :", this.camera.position);
-    // console.log("mesh :", this.mesh.position);
-    // console.log("this direction", this.direction);
-    // console.log("this mesh direction", this.normalizedDirection);
-
     this.camera.position.copy(
       new THREE.Vector3(
         this.body.position.x,
@@ -152,8 +147,9 @@ class player {
     );
     console.log(
       "ray group :",
-      this.rayGroup.bottomRay.hasHit,
-      this.rayGroup.topRay.hasHit
+      this.rayGroup.bottomRay.from,
+      this.rayGroup.bottomRay.to,
+      this.rayGroup.bottomRay.hasHit
     );
     ////UPDATE RAYGROUP//////
 
@@ -193,7 +189,7 @@ class player {
         this.compoundVelocity.addScaledVector(
           this.velocity,
           new CANNON.Quaternion()
-            .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), (Math.PI / 2))
+            .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2)
             .vmult(this.normalizedDirection.clone()),
           this.compoundVelocity
         );
