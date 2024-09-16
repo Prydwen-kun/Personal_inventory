@@ -46,6 +46,7 @@ class player {
       this.camera.quaternion,
       "YXZ"
     );
+    this.compoundVelocity = new CANNON.Vec3();
 
     //Keymap
     this.keymap = {};
@@ -158,42 +159,44 @@ class player {
 
     if (this.body !== null) {
       ////UP////
-
+      this.compoundVelocity.set(0, 0, 0);
       if (this.keymap["KeyW"] == true) {
-        this.body.velocity = this.normalizedDirection.scale(-this.velocity);
+        this.compoundVelocity.addScaledVector(
+          -this.velocity,
+          this.normalizedDirection,
+          this.compoundVelocity
+        );
       }
 
       ////BACK////
       if (this.keymap["KeyS"] == true) {
-        this.body.velocity = this.normalizedDirection.scale(this.velocity);
+        this.compoundVelocity.addScaledVector(
+          this.velocity,
+          this.normalizedDirection,
+          this.compoundVelocity
+        );
       }
 
       //LEFT
       if (this.keymap["KeyA"] == true) {
-        let posToCannon = new THREE.Vector3(
-          this.normalizedDirection.x,
-          this.normalizedDirection.y,
-          this.normalizedDirection.z
-        ).applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
-        this.body.velocity = new CANNON.Vec3(
-          posToCannon.x,
-          posToCannon.y,
-          posToCannon.z
-        ).scale(-this.velocity);
+        this.compoundVelocity.addScaledVector(
+          this.velocity,
+          new CANNON.Quaternion()
+            .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -(Math.PI / 2))
+            .vmult(this.normalizedDirection.clone()),
+          this.compoundVelocity
+        );
       }
 
       //RIGHT
       if (this.keymap["KeyD"] == true) {
-        let posToCannon = new THREE.Vector3(
-          this.normalizedDirection.x,
-          this.normalizedDirection.y,
-          this.normalizedDirection.z
-        ).applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
-        this.body.velocity = new CANNON.Vec3(
-          posToCannon.x,
-          posToCannon.y,
-          posToCannon.z
-        ).scale(this.velocity);
+        this.compoundVelocity.addScaledVector(
+          this.velocity,
+          new CANNON.Quaternion()
+            .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), (Math.PI / 2))
+            .vmult(this.normalizedDirection.clone()),
+          this.compoundVelocity
+        );
       }
     }
 
@@ -227,6 +230,7 @@ class player {
       }
       this.touchFloor = false;
     }
+    this.body.velocity = this.compoundVelocity;
   }
 }
 
