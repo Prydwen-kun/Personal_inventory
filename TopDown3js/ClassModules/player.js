@@ -108,17 +108,28 @@ class player {
 
     //direction debug + normalizedDirection update
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = new CANNON.Vec3(
-      this.direction.x,
-      0,
-      this.direction.z
+    //change body rotation
+    this.body.quaternion.setFromEuler(0, this.camera.rotation.y, 0);
+    this.mesh.setRotationFromQuaternion(
+      new THREE.Quaternion(
+        this.body.quaternion.x,
+        this.body.quaternion.y,
+        this.body.quaternion.z,
+        this.body.quaternion.w
+      )
     );
+    //rotate unit direction vector from body
+    this.mesh.getWorldDirection(this.normalizedDirection);
+    
 
-    console.log("this body velocity", this.body.velocity);
+    console.log("this mesh direction", this.normalizedDirection);
 
-    this.body.quaternion.setFromAxisAngle(
-      new CANNON.Vec3(0, 1, 0),
-      this.camera.quaternion.w
+    this.camera.position.copy(
+      new THREE.Vector3(
+        this.body.position.x,
+        this.body.position.y + 0.75,
+        this.body.position.z
+      )
     );
 
     ////UPDATE RAYGROUP//////
@@ -192,7 +203,9 @@ class player {
         "top hit:",
         this.rayGroup.topRay.hasHit,
         "bottom hit :",
-        this.rayGroup.bottomRay.hasHit
+        this.rayGroup.bottomRay.hasHit,
+        "debug ray group :",
+        this.rayGroup
       );
       if (this.rayGroup.bottomRay.hasHit) {
         this.touchFloor = true;
@@ -218,12 +231,6 @@ class player {
 
     //UPDATE CAMERA AND COLLIDER POSITION
 
-    //clamp velocity
-    // if (this.body.velocity.length() >= this.velocity) {
-    //   this.body.velocity.normalize();
-    //   this.body.velocity.scale(this.velocity);
-    // }
-
     this.camera.position.copy(
       new THREE.Vector3(
         this.body.position.x,
@@ -231,10 +238,7 @@ class player {
         this.body.position.z
       )
     );
-    this.body.quaternion.setFromAxisAngle(
-      new CANNON.Vec3(0, 1, 0),
-      this.camera.quaternion.w
-    );
+    this.body.quaternion.setFromEuler(0, this.camera.rotation.y, 0);
     // this.camera.position.y += 0.75;
   }
 }

@@ -61,6 +61,7 @@ class rayGroup {
         .clone()
         .addScaledVector(this.rayLength, this.cannonNormalizedDirection)
     );
+    this.forwardRay.skipBackfaces = true;
 
     this.backwardRay = new CANNON.Ray(
       this.cannonPosition,
@@ -68,6 +69,7 @@ class rayGroup {
         .clone()
         .addScaledVector(-this.rayLength, this.cannonNormalizedDirection)
     );
+    this.backwardRay.skipBackfaces = true;
 
     this.leftRay = new CANNON.Ray(
       this.cannonPosition,
@@ -80,6 +82,8 @@ class rayGroup {
             .vmult(this.cannonNormalizedDirection.clone())
         )
     );
+    this.leftRay.skipBackfaces = true;
+
     this.rightRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -91,6 +95,8 @@ class rayGroup {
             .vmult(this.cannonNormalizedDirection.clone())
         )
     );
+    this.rightRay.skipBackfaces = true;
+
     this.forwardLeftRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -102,6 +108,8 @@ class rayGroup {
             .vmult(this.cannonNormalizedDirection.clone())
         )
     );
+    this.forwardLeftRay.skipBackfaces = true;
+
     this.forwardRightRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -113,6 +121,8 @@ class rayGroup {
             .vmult(this.cannonNormalizedDirection.clone())
         )
     );
+    this.forwardRightRay.skipBackfaces = true;
+
     this.backwardLeftRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -124,6 +134,8 @@ class rayGroup {
             .vmult(this.cannonNormalizedDirection.clone())
         )
     );
+    this.backwardLeftRay.skipBackfaces = true;
+
     this.backwardRightRay = new CANNON.Ray(
       this.cannonPosition,
       this.cannonPosition
@@ -135,6 +147,7 @@ class rayGroup {
             .vmult(this.cannonNormalizedDirection.clone())
         )
     );
+    this.backwardRightRay.skipBackfaces = true;
   }
   updateRayGroup(actorPosition, normalizedDirection, world) {
     this.cannonPosition = new CANNON.Vec3(
