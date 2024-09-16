@@ -204,7 +204,7 @@ class player {
     }
 
     if (typeof this.body !== undefined) {
-      //////JUMP//////
+      //////JUMP//////change this to velocity
 
       if (this.rayGroup.bottomRay.hasHit) {
         this.touchFloor = true;
