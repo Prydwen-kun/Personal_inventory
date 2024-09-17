@@ -1,4 +1,5 @@
 import * as THREE from "..//three.js-master/build/three.module.js";
+import * as CANNON from "cannon-es";
 
 class cube {
   constructor(x, y, z, loader, posX, posY, posZ, texture) {
@@ -21,6 +22,9 @@ class cube {
     this.mesh.position.x = posX;
     this.mesh.position.y = posY;
     this.mesh.position.z = posZ;
+
+    this.cannonMaterial = new CANNON.Material({ restitution: 0 });
+    this.cannonMaterial.name = "terrainMaterial";
 
     this.isActor = false;
   }

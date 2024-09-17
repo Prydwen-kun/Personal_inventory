@@ -14,7 +14,7 @@ class mobs {
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = false;
         this.mesh.position.set(spawnPosition.x, spawnPosition.y, spawnPosition.z);
-
+        this.cannonMaterial = new CANNON.Material({ restitution: 0 })
         this.isActor = true;
 
         //POUR DEBUG

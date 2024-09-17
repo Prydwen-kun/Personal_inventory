@@ -33,7 +33,6 @@ let sceneActorArray = [];
 
 const world = CANNON_INIT.initCannon().world;
 
-
 console.log("world contact material : ", world.defaultContactMaterial);
 
 //TEXTURE LOADER
@@ -130,6 +129,12 @@ scene.add(player1.getPlayerControls().getObject());
 //array of all scene object to process collision
 
 CANNON_INIT.addBoxCollider(player1, world, sceneActorArray);
+const playerTerrainContactMaterial = new CANNON.ContactMaterial(
+  player1.body.cannonMaterial,
+  map1.wallFloor.body.cannonMaterial,
+  { friction: 0.8, restitution: 0 }
+);
+world.addContactMaterial(playerTerrainContactMaterial);
 
 /////////////////CANNON INIT////////////
 console.log("scene actor array : ", sceneActorArray);

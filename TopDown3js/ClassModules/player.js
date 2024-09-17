@@ -34,6 +34,8 @@ class player {
       camera.position.y - 0.75,
       camera.position.z
     );
+    this.cannonMaterial = new CANNON.Material({ restitution: 0 });
+    this.cannonMaterial.name = "playerMaterial";
 
     // console.log("Mesh pos :", this.mesh.position);
     //position and speed
