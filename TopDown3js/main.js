@@ -33,8 +33,6 @@ let sceneActorArray = [];
 
 const world = CANNON_INIT.initCannon().world;
 
-console.log("world contact material : ", world.defaultContactMaterial);
-
 //TEXTURE LOADER
 const loader = new THREE.TextureLoader();
 
@@ -130,10 +128,12 @@ scene.add(player1.getPlayerControls().getObject());
 
 CANNON_INIT.addBoxCollider(player1, world, sceneActorArray);
 const playerTerrainContactMaterial = new CANNON.ContactMaterial(
-  player1.body.cannonMaterial,
-  map1.wallFloor.body.cannonMaterial,
+  player1.getPlayerBody().material,
+  map1.getFloorObject().body.material,
   { friction: 0.8, restitution: 0 }
 );
+playerTerrainContactMaterial.id = 10;
+console.log("world contact material : ", playerTerrainContactMaterial);
 world.addContactMaterial(playerTerrainContactMaterial);
 
 /////////////////CANNON INIT////////////

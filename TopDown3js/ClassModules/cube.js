@@ -25,6 +25,7 @@ class cube {
 
     this.cannonMaterial = new CANNON.Material({ restitution: 0 });
     this.cannonMaterial.name = "terrainMaterial";
+    this.cannonMaterial.id = 4;
 
     this.isActor = false;
   }

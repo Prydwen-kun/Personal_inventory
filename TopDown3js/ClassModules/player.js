@@ -36,6 +36,7 @@ class player {
     );
     this.cannonMaterial = new CANNON.Material({ restitution: 0 });
     this.cannonMaterial.name = "playerMaterial";
+    this.cannonMaterial.id = 3;
 
     // console.log("Mesh pos :", this.mesh.position);
     //position and speed
@@ -78,6 +79,9 @@ class player {
   }
   getPlayerVelocity() {
     return this.velocity;
+  }
+  getPlayerBody() {
+    return this.body;
   }
   //setter
   setPlayerDirection(direction) {
