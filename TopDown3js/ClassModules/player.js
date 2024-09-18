@@ -57,9 +57,10 @@ class player {
     //flag
     this.jumping = false;
     this.touchFloor = false;
+    this.pressedSpace = false;
 
     //RAY GROUP
-    this.rayLength = 1.05;
+    this.rayLength = 1;
     this.rayGroup = new RAYGROUP.rayGroup(
       this.rayLength,
       this.mesh.position,
@@ -151,17 +152,22 @@ class player {
       this.normalizedDirection,
       world
     );
-    console.log(
-      "ray group :",
-      this.rayGroup.bottomRay.from,
-      this.rayGroup.bottomRay.to,
-      this.rayGroup.bottomRay.hasHit
-    );
+
     ////UPDATE RAYGROUP//////
 
     if (this.body !== null) {
+      //reset velocity
+      if (this.jumping) {
+        this.compoundVelocity.set(
+          this.compoundVelocity.x,
+          this.body.velocity.y,
+          this.compoundVelocity.z
+        );
+      } else {
+        this.compoundVelocity.set(0, this.body.velocity.y, 0);
+      }
+
       ////UP////
-      this.compoundVelocity.set(0, 0, 0);
       if (this.keymap["KeyW"] == true) {
         this.compoundVelocity.addScaledVector(
           -this.velocity,
@@ -211,20 +217,22 @@ class player {
 
     if (typeof this.body !== undefined) {
       //////JUMP//////change this to velocity
-
       if (this.rayGroup.bottomRay.hasHit) {
         this.touchFloor = true;
       }
 
       if (this.keymap["Space"] == true) {
-        if (!this.jumping && this.touchFloor) {
+        if (!this.jumping && this.touchFloor && !this.pressedSpace) {
           //add vertical impulse
           this.body.applyImpulse(
-            new CANNON.Vec3(0, 600, 0),
-            this.mesh.position
+            new CANNON.Vec3(0, 100, 0),
+            this.body.position
           );
           this.jumping = true;
+          this.pressedSpace = true;
         }
+      } else {
+        this.pressedSpace = false;
       }
 
       if (this.touchFloor) {
@@ -232,7 +240,11 @@ class player {
       }
       this.touchFloor = false;
     }
-    this.body.velocity = this.compoundVelocity;
+    this.body.velocity.set(
+      this.compoundVelocity.x,
+      this.body.velocity.y,
+      this.compoundVelocity.z
+    );
   }
 }
 

@@ -13,6 +13,7 @@ class rayGroup {
       normalizedDirection.y,
       normalizedDirection.z
     );
+    this.cannonNormalizedDirection.negate(this.cannonNormalizedDirection);
 
     this.rayLength = rayLength;
 
@@ -34,7 +35,7 @@ class rayGroup {
       this.cannonPosition
         .clone()
         .addScaledVector(
-          this.rayLength * 2,
+          this.rayLength,
           new CANNON.Quaternion()
             .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -(Math.PI / 2))
             .vmult(this.cannonNormalizedDirection.clone())
@@ -47,7 +48,7 @@ class rayGroup {
       this.cannonPosition
         .clone()
         .addScaledVector(
-          this.rayLength * 2,
+          this.rayLength,
           new CANNON.Quaternion()
             .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
             .vmult(this.cannonNormalizedDirection.clone())
@@ -161,6 +162,7 @@ class rayGroup {
       normalizedDirection.y,
       normalizedDirection.z
     );
+    this.cannonNormalizedDirection.negate(this.cannonNormalizedDirection);
     //DEBUG
     // console.log("Debug raygroup :", this);
     this.topRay.from = this.cannonPosition;
@@ -169,7 +171,7 @@ class rayGroup {
       .addScaledVector(
         this.rayLength,
         new CANNON.Quaternion()
-          .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -(Math.PI / 2))
+          .setFromAxisAngle(new CANNON.Vec3(0, 0, 1), Math.PI / 2)
           .vmult(this.cannonNormalizedDirection.clone())
       );
 
@@ -179,8 +181,8 @@ class rayGroup {
       .addScaledVector(
         this.rayLength,
         new CANNON.Quaternion()
-          .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
-          .vmult(this.cannonNormalizedDirection.clone())
+          .setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), (Math.PI / 2))
+          .vmult(new CANNON.Vec3(0, 0, -1))
       );
 
     this.forwardRay.from = this.cannonPosition;
