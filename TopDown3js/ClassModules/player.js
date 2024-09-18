@@ -60,7 +60,7 @@ class player {
     this.pressedSpace = false;
 
     //RAY GROUP
-    this.rayLength = 1;
+    this.rayLength = 1.0;
     this.rayGroup = new RAYGROUP.rayGroup(
       this.rayLength,
       this.mesh.position,
@@ -225,7 +225,7 @@ class player {
         if (!this.jumping && this.touchFloor && !this.pressedSpace) {
           //add vertical impulse
           this.body.applyImpulse(
-            new CANNON.Vec3(0, 100, 0),
+            new CANNON.Vec3(0, 120, 0),
             this.body.position
           );
           this.jumping = true;
@@ -239,9 +239,11 @@ class player {
         this.jumping = false;
       }
       this.touchFloor = false;
-
     }
+    console.log("rayHit :", this.rayGroup.bottomRay.hasHit);
 
+    console.log("jumping :", this.jumping);
+    console.log("pressed Space :", this.pressedSpace);
     this.body.velocity.set(
       this.compoundVelocity.x,
       this.body.velocity.y,
