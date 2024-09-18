@@ -34,9 +34,9 @@ class player {
       camera.position.y - 0.75,
       camera.position.z
     );
-    this.cannonMaterial = new CANNON.Material({ restitution: 0 });
+    this.cannonMaterial = new CANNON.Material({ restitution: 0.0 });
     this.cannonMaterial.name = "playerMaterial";
-    this.cannonMaterial.id = 3;
+    this.cannonMaterial.id = 0;
 
     // console.log("Mesh pos :", this.mesh.position);
     //position and speed
@@ -239,7 +239,9 @@ class player {
         this.jumping = false;
       }
       this.touchFloor = false;
+
     }
+
     this.body.velocity.set(
       this.compoundVelocity.x,
       this.body.velocity.y,

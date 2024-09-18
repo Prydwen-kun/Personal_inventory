@@ -130,8 +130,14 @@ CANNON_INIT.addBoxCollider(player1, world, sceneActorArray);
 const playerTerrainContactMaterial = new CANNON.ContactMaterial(
   player1.getPlayerBody().material,
   map1.getFloorObject().body.material,
-  { friction: 0.8, restitution: 0 }
+  {
+    friction: 0.8,
+    restitution: 0.0,
+    contactEquationRelaxation: 10.0,
+    frictionEquationStiffness: 1,
+  }
 );
+
 playerTerrainContactMaterial.id = 10;
 console.log("world contact material : ", playerTerrainContactMaterial);
 world.addContactMaterial(playerTerrainContactMaterial);

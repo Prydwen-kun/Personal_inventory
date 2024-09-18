@@ -23,9 +23,9 @@ class cube {
     this.mesh.position.y = posY;
     this.mesh.position.z = posZ;
 
-    this.cannonMaterial = new CANNON.Material({ restitution: 0 });
+    this.cannonMaterial = new CANNON.Material({ restitution: 0.0 });
     this.cannonMaterial.name = "terrainMaterial";
-    this.cannonMaterial.id = 4;
+    this.cannonMaterial.id = 1;
 
     this.isActor = false;
   }
