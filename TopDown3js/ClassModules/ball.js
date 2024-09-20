@@ -17,8 +17,7 @@ class ball {
     this.scene = scene;
 
     this.meshLoader = new meshLoader();
-    this.meshLoader.loadMesh("/chicken/chickenV2.glb", scene);
-    this.model = this.meshLoader.geometry;
+    this.model = this.meshLoader.loadMesh("/chicken/chickenV2.glb", scene);
 
     this.cannonMaterial = new CANNON.Material({ restitution: 0.5 });
     this.cannonMaterial.name = "ballMaterial";

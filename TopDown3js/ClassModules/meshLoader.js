@@ -17,10 +17,11 @@ class meshLoader {
   }
 
   loadMesh(modelUrl, scene) {
-    this.geometry = this.GLTFloader.load(
+    this.GLTFloader.load(
       modelUrl,
       (geometry) => {
         scene.add(geometry.scene);
+        this.geometry = geometry.scene;
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -29,6 +30,7 @@ class meshLoader {
         console.log("An error happened !");
       }
     );
+    return this.geometry;
   }
 }
 
