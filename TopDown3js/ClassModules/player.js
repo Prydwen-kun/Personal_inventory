@@ -55,7 +55,7 @@ class player {
     this.keymap = {};
 
     //flag
-    this.jumpingPower = 80;
+    this.jumpingPower = 800;
     this.jumping = false;
     this.touchFloor = false;
     this.pressedSpace = false;
@@ -106,7 +106,7 @@ class player {
       let keyCode = event.code;
       this.keymap[keyCode] = true;
 
-      console.log(keyCode);
+      // console.log(keyCode);
     };
 
     onkeyup = (event) => {
@@ -225,7 +225,7 @@ class player {
       if (this.keymap["Space"] == true) {
         if (!this.jumping && this.touchFloor && !this.pressedSpace) {
           //add vertical impulse
-          this.body.applyImpulse(new CANNON.Vec3(0, 800, 0));
+          this.body.applyImpulse(new CANNON.Vec3(0, this.jumpingPower, 0));
           this.jumping = true;
           this.pressedSpace = true;
         }
