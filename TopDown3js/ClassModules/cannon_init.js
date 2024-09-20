@@ -87,7 +87,7 @@ function addSphereCollider(sceneObject, world, sceneActorArray) {
 
 function updatePhysics(sceneObjectArray, sceneActorArray, world, deltaTime) {
   // Step the physics world
-  world.step(1 / 60, deltaTime, 10);
+  world.step(1 / 60, deltaTime, 15);
   // Copy coordinates from Cannon.js to Three.js
   sceneObjectArray.forEach((object) => {
     object.mesh.position.copy(object.body.position);
