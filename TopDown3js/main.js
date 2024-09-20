@@ -69,13 +69,13 @@ scene.add(sky);
 const clock = new THREE.Clock();
 
 // ROTATING CUBE
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshLambertMaterial({ color: 0xcccc00 });
+const geometry = new THREE.BoxGeometry(1, 3, 0.2);
+const material = new THREE.MeshLambertMaterial({ color: 0x333300 });
 const cube = new THREE.Mesh(geometry, material);
 cube.castShadow = true;
 cube.receiveShadow = false;
 scene.add(cube);
-cube.position.y = 1;
+cube.position.y = 2;
 cube.position.x = -10;
 
 /////////////////////INIT MAP/////////////////
@@ -118,9 +118,23 @@ const player1 = new PLAYER.player("P1", camera, renderer.domElement, clock);
 
 //BALLS
 const balls = [];
-for (let i = 0; i <= 10; i++) {
+for (let i = 0; i <= 12; i++) {
   balls.push(new BALL.ball());
   balls[i].addToScene(scene);
+  balls[i].mesh.position.set(
+    new THREE.Vector3(0, 0, -20).applyAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      Math.PI / 4 + i
+    ).x,
+    new THREE.Vector3(0, 0, -20).applyAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      Math.PI / 4 + i
+    ).y,
+    new THREE.Vector3(0, 0, -20).applyAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      Math.PI / 4 + i
+    ).z
+  );
   balls[i].cannon_init(world, sceneActorArray);
 }
 

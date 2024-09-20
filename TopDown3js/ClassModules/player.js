@@ -55,6 +55,7 @@ class player {
     this.keymap = {};
 
     //flag
+    this.jumpingPower = 80;
     this.jumping = false;
     this.touchFloor = false;
     this.pressedSpace = false;
@@ -224,10 +225,7 @@ class player {
       if (this.keymap["Space"] == true) {
         if (!this.jumping && this.touchFloor && !this.pressedSpace) {
           //add vertical impulse
-          this.body.applyImpulse(
-            new CANNON.Vec3(0, 120, 0),
-            this.body.position
-          );
+          this.body.applyImpulse(new CANNON.Vec3(0, 800, 0));
           this.jumping = true;
           this.pressedSpace = true;
         }
@@ -237,16 +235,11 @@ class player {
 
       if (this.touchFloor) {
         this.jumping = false;
-        // this.body.force = new CANNON.Vec3(0, 0, 0);
+        this.body.force = new CANNON.Vec3(0, 0, 0);
       }
       this.touchFloor = false;
     }
-    // console.log("rayHit :", this.rayGroup.bottomRay.hasHit);
-    console.log("body:", this.body.velocity);
-    // console.log("body y:", this.body.position.y);
-
-    // console.log("jumping :", this.jumping);
-    // console.log("pressed Space :", this.pressedSpace);
+    
     this.body.velocity.set(
       this.compoundVelocity.x,
       this.body.velocity.y,

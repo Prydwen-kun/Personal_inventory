@@ -3,9 +3,9 @@ import * as CANNON from "cannon-es";
 import * as CANNON_INIT from "./cannon_init.js";
 
 class ball {
-  constructor() {
+  constructor(radius = 1) {
     this.isActor = true;
-    this.radius = 1;
+    this.radius = radius;
     this.geometry = new THREE.SphereGeometry(this.radius);
     this.material = new THREE.MeshLambertMaterial({ color: 0xee3311 });
     this.mesh = new THREE.Mesh(this.geometry, this.material);
