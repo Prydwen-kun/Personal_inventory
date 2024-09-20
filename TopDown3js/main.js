@@ -119,7 +119,7 @@ const player1 = new PLAYER.player("P1", camera, renderer.domElement, clock);
 //BALLS
 const balls = [];
 for (let i = 0; i <= 12; i++) {
-  balls.push(new BALL.ball());
+  balls.push(new BALL.ball(1, scene));
   balls[i].addToScene(scene);
   balls[i].mesh.position.set(
     new THREE.Vector3(0, 0, -20).applyAxisAngle(
@@ -178,8 +178,21 @@ const playerTerrainContactMaterial = new CANNON.ContactMaterial(
 );
 
 playerTerrainContactMaterial.id = 10;
+
+const ballTerrainContactMaterial = new CANNON.ContactMaterial(
+  balls[0].getBody().material,
+  map1.getFloorObject().body.material,
+  {
+    friction: 0.8,
+    restitution: 0.5,
+  }
+);
+
+ballTerrainContactMaterial.id = 11;
+
 console.log("world contact material : ", playerTerrainContactMaterial);
 world.addContactMaterial(playerTerrainContactMaterial);
+world.addContactMaterial(ballTerrainContactMaterial);
 
 /////////////////CANNON INIT////////////
 console.log("scene actor array : ", sceneActorArray);
