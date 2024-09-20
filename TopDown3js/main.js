@@ -2,12 +2,17 @@ import "./style.css";
 import * as THREE from "./three.js-master/build/three.module.js";
 import * as PLAYER from "./ClassModules/player.js";
 import * as MOBS from "./ClassModules/mobs.js";
+import * as BALL from "./ClassModules/ball.js";
 import * as MAP from "./ClassModules/map.js";
 import * as CANNON from "cannon-es";
 import * as CANNON_INIT from "./ClassModules/cannon_init.js";
 import * as GAMESTATE from "./ClassModules/gamestate.js";
 import * as ATH from "./ClassModules/ath.js";
 import { Sky } from "./three.js-master/examples/jsm/objects/Sky.js";
+import { EffectComposer } from "./three.js-master/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "./three.js-master/examples/jsm/postprocessing/RenderPass.js";
+import { ShaderPass } from "./three.js-master/examples/jsm/postprocessing/ShaderPass.js";
+import { FXAAShader } from "./three.js-master/examples/jsm/shaders/FXAAShader.js";
 
 //INIT SCENE AND CAMERA
 const scene = new THREE.Scene();
@@ -17,14 +22,26 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-
+// scene settings
 scene.background = new THREE.Color(0xfa6f66);
 scene.fog = new THREE.Fog(0xbbbbbb, 10, 500);
 scene.updateWorldMatrix(true, true);
+// renderer settings
 const renderer = new THREE.WebGLRenderer();
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(window.innerWidth * 0.8, window.innerHeight * 0.8);
+// fxaa AA settings
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+
+const fxaaPass = new ShaderPass(FXAAShader);
+let pixelRatio = renderer.getPixelRatio();
+let uniforms = fxaaPass.material.uniforms;
+uniforms["resolution"].value.x = 1 / (window.innerWidth * pixelRatio);
+uniforms["resolution"].value.y = 1 / (window.innerHeight * pixelRatio);
+composer.addPass(fxaaPass);
+
 document.getElementById("game_container").appendChild(renderer.domElement);
 
 //////////CANNON VAR INIT/////////////
@@ -99,6 +116,14 @@ camera.position.y = 2;
 //PLAYER
 const player1 = new PLAYER.player("P1", camera, renderer.domElement, clock);
 
+//BALLS
+const balls = [];
+for (let i = 0; i <= 10; i++) {
+  balls.push(new BALL.ball());
+  balls[i].addToScene(scene);
+  balls[i].cannon_init(world, sceneActorArray);
+}
+
 // EVENT LISTENERS AND GAMESTATE
 const gameState = new GAMESTATE.gamestate();
 
@@ -166,8 +191,8 @@ function updatePlay() {
       requestAnimationFrame(updatePlay);
       let deltaTimeStoring = clock.getDelta();
 
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+      cube.rotation.x += 0.05;
+      cube.rotation.y += 0.1;
 
       //game timer
       gameState.stepClockSec(deltaTimeStoring);
@@ -186,6 +211,9 @@ function updatePlay() {
         world,
         deltaTimeStoring
       );
+
+      // FXAA
+      // composer.render(deltaTimeStoring);
 
       renderer.render(scene, camera);
       break;

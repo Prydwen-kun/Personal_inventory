@@ -237,13 +237,16 @@ class player {
 
       if (this.touchFloor) {
         this.jumping = false;
+        // this.body.force = new CANNON.Vec3(0, 0, 0);
       }
       this.touchFloor = false;
     }
-    console.log("rayHit :", this.rayGroup.bottomRay.hasHit);
+    // console.log("rayHit :", this.rayGroup.bottomRay.hasHit);
+    console.log("body:", this.body.velocity);
+    // console.log("body y:", this.body.position.y);
 
-    console.log("jumping :", this.jumping);
-    console.log("pressed Space :", this.pressedSpace);
+    // console.log("jumping :", this.jumping);
+    // console.log("pressed Space :", this.pressedSpace);
     this.body.velocity.set(
       this.compoundVelocity.x,
       this.body.velocity.y,

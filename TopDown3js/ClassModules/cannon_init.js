@@ -67,10 +67,10 @@ function addStaticBoxCollider(sceneObject, world, sceneObjectArray) {
 }
 
 function addSphereCollider(sceneObject, world, sceneActorArray) {
-  sceneObject.shape = new CANNON.Sphere(1);
-  sceneObject.mass = 60;
+  sceneObject.shape = new CANNON.Sphere(sceneObject.radius);
+  sceneObject.mass = 30;
   sceneObject.body = new CANNON.Body({
-    mass: 60,
+    mass: 30,
     material: sceneObject.cannonMaterial,
   });
 
