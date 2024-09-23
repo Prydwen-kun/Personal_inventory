@@ -8,6 +8,7 @@ import * as CANNON from "cannon-es";
 import * as CANNON_INIT from "./ClassModules/cannon_init.js";
 import * as GAMESTATE from "./ClassModules/gamestate.js";
 import * as ATH from "./ClassModules/ath.js";
+import * as MESHLOADER from "./ClassModules/meshLoader.js";
 import { Sky } from "./three.js-master/examples/jsm/objects/Sky.js";
 import { EffectComposer } from "./three.js-master/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "./three.js-master/examples/jsm/postprocessing/RenderPass.js";
@@ -52,6 +53,7 @@ const world = CANNON_INIT.initCannon().world;
 
 //TEXTURE LOADER
 const loader = new THREE.TextureLoader();
+const meshLoader = new MESHLOADER.meshLoader();
 
 //SKY
 const sky = new Sky();
@@ -120,6 +122,9 @@ const player1 = new PLAYER.player("P1", camera, renderer.domElement, clock);
 const balls = [];
 for (let i = 0; i <= 12; i++) {
   balls.push(new BALL.ball(1, scene));
+
+  balls[i].model = meshLoader.loadMesh("/ramen/Ramen/Ramen.glb");
+
   balls[i].addToScene(scene);
   balls[i].mesh.position.set(
     new THREE.Vector3(0, 0, -20).applyAxisAngle(
@@ -241,7 +246,8 @@ function updatePlay() {
 
       // FXAA
       // composer.render(deltaTimeStoring);
-
+      //////////////DEBUG DU MODEL LE RETURN NE FONCTIONNE PAS///////////////////////
+      console.log("model", balls[0].model);
       renderer.render(scene, camera);
       break;
     //MENU//////////////
