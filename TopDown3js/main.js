@@ -245,8 +245,9 @@ function updatePlay() {
       );
 
       // FXAA
-      // composer.render(deltaTimeStoring);
+      
       renderer.render(scene, camera);
+      // composer.render(deltaTimeStoring);
       break;
     //MENU//////////////
     case "menu":
