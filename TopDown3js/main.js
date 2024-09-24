@@ -121,7 +121,7 @@ const player1 = new PLAYER.player("P1", camera, renderer.domElement, clock);
 //BALLS
 const balls = [];
 for (let i = 0; i <= 12; i++) {
-  balls.push(new BALL.ball(1, scene));
+  balls.push(new BALL.ball(0.25, scene));
 
   balls[i].model = await meshLoader.loadMesh("/ramen/Ramen/Ramen.glb");
   balls[i].mesh = balls[i].model.scene;
@@ -246,8 +246,6 @@ function updatePlay() {
 
       // FXAA
       // composer.render(deltaTimeStoring);
-      //////////////DEBUG DU MODEL LE RETURN NE FONCTIONNE PAS///////////////////////
-      console.log("model", balls[0].model);
       renderer.render(scene, camera);
       break;
     //MENU//////////////
