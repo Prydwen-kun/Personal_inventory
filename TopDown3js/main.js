@@ -123,8 +123,8 @@ const balls = [];
 for (let i = 0; i <= 12; i++) {
   balls.push(new BALL.ball(1, scene));
 
-  balls[i].model = meshLoader.loadMesh("/ramen/Ramen/Ramen.glb");
-
+  balls[i].model = await meshLoader.loadMesh("/ramen/Ramen/Ramen.glb");
+  balls[i].mesh = balls[i].model.scene;
   balls[i].addToScene(scene);
   balls[i].mesh.position.set(
     new THREE.Vector3(0, 0, -20).applyAxisAngle(

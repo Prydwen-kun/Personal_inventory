@@ -20,22 +20,21 @@ class meshLoader {
   }
 
   loadMesh(modelUrl) {
-    do {
+    return new Promise((resolve, reject) => {
       this.GLTFloader.load(
         modelUrl,
-        (geometry) => {
-          // scene.add(geometry.scene);
-          this.geometry = geometry;
+        (gltf) => {
+          resolve(gltf);
         },
         (xhr) => {
           console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
         },
         (error) => {
           console.log("An error happened !");
+          reject(error);
         }
       );
-    } while (typeof this.geometry.scene == undefined);
-    return this.geometry.scene;
+    });
   }
 }
 
