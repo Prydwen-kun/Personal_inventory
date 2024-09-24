@@ -13,6 +13,7 @@ class rayGroup {
       normalizedDirection.y,
       normalizedDirection.z
     );
+    this.cannonNormalizedDirection.negate(this.cannonNormalizedDirection);
 
     this.rayLength = rayLength;
 
@@ -161,6 +162,7 @@ class rayGroup {
       normalizedDirection.y,
       normalizedDirection.z
     );
+    this.cannonNormalizedDirection.negate(this.cannonNormalizedDirection);
     //DEBUG
     // console.log("Debug raygroup :", this);
     this.topRay.from = this.cannonPosition;
@@ -169,7 +171,7 @@ class rayGroup {
       .addScaledVector(
         this.rayLength,
         new CANNON.Quaternion()
-          .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -(Math.PI / 2))
+          .setFromAxisAngle(new CANNON.Vec3(0, 0, 1), Math.PI / 2)
           .vmult(this.cannonNormalizedDirection.clone())
       );
 
@@ -179,8 +181,8 @@ class rayGroup {
       .addScaledVector(
         this.rayLength,
         new CANNON.Quaternion()
-          .setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
-          .vmult(this.cannonNormalizedDirection.clone())
+          .setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), (Math.PI / 2))
+          .vmult(new CANNON.Vec3(0, 0, -1))
       );
 
     this.forwardRay.from = this.cannonPosition;
@@ -259,43 +261,53 @@ class rayGroup {
     this.topRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.topResult,
+      skipBackfaces: true,
     });
     this.bottomRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.bottomResult,
+      skipBackfaces: true,
     });
 
     this.forwardRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.frontResult,
+      skipBackfaces: true,
     });
     this.backwardRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.backResult,
+      skipBackfaces: true,
     });
     this.leftRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.leftResult,
+      skipBackfaces: true,
     });
     this.rightRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.rightResult,
+      skipBackfaces: true,
     });
     this.forwardLeftRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.frontLeftResult,
+      skipBackfaces: true,
     });
     this.forwardRightRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.frontRightResult,
+      skipBackfaces: true,
     });
     this.backwardLeftRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.backLeftResult,
+      skipBackfaces: true,
     });
     this.backwardRightRay.intersectWorld(world, {
       mode: CANNON.RAY_MODES.ALL,
       result: this.backRightResult,
+      skipBackfaces: true,
     });
   }
 }

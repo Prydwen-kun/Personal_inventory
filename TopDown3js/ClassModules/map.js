@@ -109,14 +109,13 @@ class map {
     this.mapGeometry = [];
     this.floorArray = [];
   }
-  generateMapCollider(world, sceneObjectArray, floorMaterial) {
+  generateMapCollider(world, sceneObjectArray) {
     for (const mapObject in this) {
       if (mapObject.includes("wall")) {
         CANNON_INIT.addStaticBoxCollider(
           this[mapObject],
           world,
-          sceneObjectArray,
-          floorMaterial
+          sceneObjectArray
         );
         this.mapGeometry.push(this[mapObject]);
       } else {

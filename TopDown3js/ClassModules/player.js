@@ -8,6 +8,10 @@ class player {
     this.name = name;
     this.controls = new PointerLockControls(camera, domElement);
     this.controls.pointerSpeed = 1; //pointer Speed Option to set
+
+    // this.controls.maxPolarAngle = Math.PI - 0.01;
+    // this.controls.minPolarAngle = 0 + 0.01;
+
     this.renderCanvas = domElement;
     this.camera = camera;
     this.clock = clock;
@@ -32,24 +36,34 @@ class player {
       camera.position.y - 0.75,
       camera.position.z
     );
+    this.cannonMaterial = new CANNON.Material({ restitution: 0.0 });
+    this.cannonMaterial.name = "playerMaterial";
+    this.cannonMaterial.id = 0;
 
-    console.log("Mesh pos :", this.mesh.position);
+    // console.log("Mesh pos :", this.mesh.position);
     //position and speed
     this.velocity = 10;
 
     this.direction = new THREE.Vector3(0, 0, 0);
     this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = this.direction.clone().normalize();
-    console.log("PC direction :", this.direction);
+    this.normalizedDirection = new CANNON.Vec3(0, 0, -1);
+    this.eulerAngleYXZ = new THREE.Euler().setFromQuaternion(
+      this.camera.quaternion,
+      "YXZ"
+    );
+    this.compoundVelocity = new CANNON.Vec3();
+
     //Keymap
     this.keymap = {};
 
     //flag
+    this.jumpingPower = 800;
     this.jumping = false;
     this.touchFloor = false;
+    this.pressedSpace = false;
 
     //RAY GROUP
-    this.rayLength = 0.5;
+    this.rayLength = 1.0;
     this.rayGroup = new RAYGROUP.rayGroup(
       this.rayLength,
       this.mesh.position,
@@ -69,6 +83,9 @@ class player {
   }
   getPlayerVelocity() {
     return this.velocity;
+  }
+  getPlayerBody() {
+    return this.body;
   }
   //setter
   setPlayerDirection(direction) {
@@ -91,7 +108,7 @@ class player {
       let keyCode = event.code;
       this.keymap[keyCode] = true;
 
-      console.log(keyCode);
+      // console.log(keyCode);
     };
 
     onkeyup = (event) => {
@@ -101,6 +118,34 @@ class player {
     };
 
     //direction debug + normalizedDirection update
+
+
+    //change body rotation
+    this.eulerAngleYXZ = new THREE.Euler().setFromQuaternion(
+      this.camera.quaternion,
+      "YXZ"
+    );
+    this.body.quaternion.setFromEuler(0, this.eulerAngleYXZ.y, 0, "YXZ");
+    //normalize quaternion
+    // projection of quaternion on plan
+
+    this.mesh.quaternion.copy(this.body.quaternion);
+    //rotate unit direction vector from body
+    this.mesh.getWorldDirection(this.direction);
+    this.normalizedDirection = new CANNON.Vec3(
+      this.direction.x,
+      this.direction.y,
+      this.direction.z
+    );
+
+    this.camera.position.copy(
+      new THREE.Vector3(
+        this.body.position.x,
+        this.body.position.y + 0.75,
+        this.body.position.z
+      )
+    );
+
     this.camera.getWorldDirection(this.direction);
     this.normalizedDirection = new THREE.Vector3(
       this.direction.x,
@@ -108,6 +153,7 @@ class player {
       this.direction.z
     );
     // console.log("PC direction :", this.direction);
+
 
     ////UPDATE RAYGROUP//////
     this.rayGroup.updateRayGroup(
@@ -119,77 +165,59 @@ class player {
       this.normalizedDirection,
       world
     );
+
     ////UPDATE RAYGROUP//////
 
     if (this.body !== null) {
+      //reset velocity
+      if (this.jumping) {
+        this.compoundVelocity.set(
+          this.compoundVelocity.x,
+          this.body.velocity.y,
+          this.compoundVelocity.z
+        );
+      } else {
+        this.compoundVelocity.set(0, this.body.velocity.y, 0);
+      }
+
       ////UP////
-      if (
-        this.keymap["KeyW"] == true &&
-        !this.rayGroup.forwardRay.hasHit &&
-        !this.rayGroup.forwardLeftRay.hasHit &&
-        !this.rayGroup.forwardRightRay.hasHit
-      ) {
-        // this.body.applyForce(playerDirectionNormal.multiplyScalar(this.velocity), this.mesh.position);
-        this.controls.moveForward(this.velocity * delta);
-      } else if (
-        this.keymap["KeyW"] == true &&
-        (this.rayGroup.forwardRay.hasHit ||
-          this.rayGroup.forwardLeftRay.hasHit ||
-          this.rayGroup.forwardRightRay.hasHit)
-      ) {
-        this.controls.moveForward(this.velocity * delta * -1);
+      if (this.keymap["KeyW"] == true) {
+        this.compoundVelocity.addScaledVector(
+          -this.velocity,
+          this.normalizedDirection,
+          this.compoundVelocity
+        );
       }
 
       ////BACK////
-      if (
-        this.keymap["KeyS"] == true &&
-        !this.rayGroup.backwardRay.hasHit &&
-        !this.rayGroup.backwardLeftRay.hasHit &&
-        !this.rayGroup.backwardRightRay.hasHit
-      ) {
-        // this.body.applyForce(playerDirectionNormal.multiplyScalar(-this.velocity), this.mesh.position);
-        this.controls.moveForward(this.velocity * delta * -1);
-      } else if (
-        this.keymap["KeyS"] == true &&
-        (this.rayGroup.backwardRay.hasHit ||
-          this.rayGroup.backwardLeftRay.hasHit ||
-          this.rayGroup.backwardRightRay.hasHit)
-      ) {
-        this.controls.moveForward(this.velocity * delta);
+      if (this.keymap["KeyS"] == true) {
+        this.compoundVelocity.addScaledVector(
+          this.velocity,
+          this.normalizedDirection,
+          this.compoundVelocity
+        );
       }
 
       //LEFT
-      if (
-        this.keymap["KeyA"] == true &&
-        !this.rayGroup.leftRay.hasHit &&
-        !this.rayGroup.forwardLeftRay.hasHit &&
-        !this.rayGroup.backwardLeftRay.hasHit
-      ) {
-        this.controls.moveRight(this.velocity * delta * -1);
-      } else if (
-        this.keymap["KeyA"] == true &&
-        (this.rayGroup.leftRay.hasHit ||
-          this.rayGroup.forwardLeftRay.hasHit ||
-          this.rayGroup.backwardLeftRay.hasHit)
-      ) {
-        this.controls.moveRight(this.velocity * delta);
+      if (this.keymap["KeyA"] == true) {
+        this.compoundVelocity.addScaledVector(
+          this.velocity,
+          new CANNON.Quaternion()
+            .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -(Math.PI / 2))
+            .vmult(this.normalizedDirection.clone()),
+          this.compoundVelocity
+        );
       }
 
       //RIGHT
-      if (
-        this.keymap["KeyD"] == true &&
-        !this.rayGroup.rightRay.hasHit &&
-        !this.rayGroup.forwardRightRay.hasHit &&
-        !this.rayGroup.backwardRightRay.hasHit
-      ) {
-        this.controls.moveRight(this.velocity * delta);
-      } else if (
-        this.keymap["KeyD"] == true &&
-        (this.rayGroup.rightRay.hasHit ||
-          this.rayGroup.forwardRightRay.hasHit ||
-          this.rayGroup.backwardRightRay.hasHit)
-      ) {
-        this.controls.moveRight(this.velocity * delta * -1);
+      if (this.keymap["KeyD"] == true) {
+        this.compoundVelocity.addScaledVector(
+          this.velocity,
+          new CANNON.Quaternion()
+            .setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2)
+            .vmult(this.normalizedDirection.clone()),
+          this.compoundVelocity
+        );
       }
     }
 
@@ -201,56 +229,36 @@ class player {
     }
 
     if (typeof this.body !== undefined) {
-      //////JUMP//////
-      console.log(
-        "top hit:",
-        this.rayGroup.topRay.hasHit,
-        "bottom hit :",
-        this.rayGroup.bottomRay.hasHit
-      );
+      //////JUMP//////change this to velocity
+
       if (this.rayGroup.bottomRay.hasHit) {
         this.touchFloor = true;
       }
 
-      if (this.keymap["Space"] == true && !this.rayGroup.topRay.hasHit) {
-        if (!this.jumping && this.touchFloor) {
+      if (this.keymap["Space"] == true) {
+        if (!this.jumping && this.touchFloor && !this.pressedSpace) {
+
           //add vertical impulse
-          this.body.applyImpulse(
-            new CANNON.Vec3(0, 600, 0),
-            this.mesh.position
-          );
+          this.body.applyImpulse(new CANNON.Vec3(0, this.jumpingPower, 0));
           this.jumping = true;
+          this.pressedSpace = true;
         }
+      } else {
+        this.pressedSpace = false;
       }
 
-      if (this.jumping && this.touchFloor) {
-        // this.body.velocity = new CANNON.Vec3(0, 0, 0);
+      if (this.touchFloor) {
         this.jumping = false;
+        this.body.force = new CANNON.Vec3(0, 0, 0);
       }
       this.touchFloor = false;
     }
-
-    //UPDATE CAMERA AND COLLIDER POSITION
-
-    this.body.position.copy(
-      new THREE.Vector3(
-        this.camera.position.x,
-        this.body.position.y,
-        this.camera.position.z
-      )
+    
+    this.body.velocity.set(
+      this.compoundVelocity.x,
+      this.body.velocity.y,
+      this.compoundVelocity.z
     );
-    this.camera.position.copy(
-      new THREE.Vector3(
-        this.camera.position.x,
-        this.body.position.y + 0.75,
-        this.camera.position.z
-      )
-    );
-    this.body.quaternion.setFromAxisAngle(
-      new THREE.Vector3(0, 1, 0),
-      this.camera.quaternion.w
-    );
-    // this.camera.position.y += 0.75;
   }
 }
 

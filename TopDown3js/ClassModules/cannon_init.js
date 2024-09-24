@@ -2,58 +2,33 @@ import * as CANNON from "cannon-es";
 import * as THREE from "..//three.js-master/build/three.module.js";
 function initCannon() {
   const world = new CANNON.World({
-    gravity: new CANNON.Vec3(0, -9.82, 0), // m/s²
+    gravity: new CANNON.Vec3(0, -9.82, 0),
+    defaultContactMaterial: { restitution: 0, friction: 0.8 },
   });
-
-  world.defaultMaterial = new CANNON.Material("defaultMaterial", {
-    friction: 0.8,
-    restitution: 0,
-  });
-
-  //ADD MATERIAL
-  const floorMaterial = new CANNON.Material("floorMaterial", {
-    friction: 0.8,
-    restitution: 0.1,
-  });
-  const characterMaterial = new CANNON.Material("characterMaterial", {
-    friction: 0.8,
-    restitution: 0.1,
-  });
-
-  //ADD contact between material
-  const floorToCharacter = new CANNON.ContactMaterial(
-    floorMaterial,
-    characterMaterial,
-    { friction: 0.8, restitution: 0.1 }
-  );
-  world.addContactMaterial(floorToCharacter);
-
-  // world.broadphase = new CANNON.NaiveBroadphase();//need to look into this shit
-  // world.solver.iterations = 10;
+  world.defaultMaterial.friction = 0.8;
+  world.defaultMaterial.restitution = 0;
+  world.defaultContactMaterial.materials[0] = world.defaultMaterial;
+  world.defaultContactMaterial.materials[1] = world.defaultMaterial;
+  world.defaultContactMaterial.friction = 0.8;
+  world.defaultContactMaterial.restitution = 0;
+  world.addContactMaterial(world.defaultContactMaterial);
 
   return {
     world: world,
-    floorMaterial: floorMaterial,
-    characterMaterial: characterMaterial,
   };
 }
 
-function addBoxCollider(
-  sceneObject,
-  world,
-  sceneActorArray,
-  characterMaterial
-) {
+function addBoxCollider(sceneObject, world, sceneActorArray) {
   let sizeCopy = new THREE.Vector3(
     sceneObject.size.x / 2,
     sceneObject.size.y / 2,
     sceneObject.size.z / 2
   );
   sceneObject.shape = new CANNON.Box(sizeCopy); //sceneObject.size
-  sceneObject.mass = 60;
+  sceneObject.mass = 80;
   sceneObject.body = new CANNON.Body({
-    mass: 60,
-    material: characterMaterial,
+    mass: 80,
+    material: sceneObject.cannonMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);
@@ -65,19 +40,9 @@ function addBoxCollider(
 
   world.addBody(sceneObject.body);
   sceneActorArray.push(sceneObject);
-  //   {
-  //     mesh: sceneObject.mesh,
-  //     collider: sceneObject.body,
-  //     type: "dynamic",
-  //   }
 }
 
-function addStaticBoxCollider(
-  sceneObject,
-  world,
-  sceneObjectArray,
-  floorMaterial
-) {
+function addStaticBoxCollider(sceneObject, world, sceneObjectArray) {
   let sizeCopy = new THREE.Vector3(
     sceneObject.size.x / 2,
     sceneObject.size.y / 2,
@@ -87,7 +52,7 @@ function addStaticBoxCollider(
   sceneObject.mass = 0;
   sceneObject.body = new CANNON.Body({
     mass: 0,
-    material: floorMaterial,
+    material: sceneObject.cannonMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);
@@ -102,10 +67,11 @@ function addStaticBoxCollider(
 }
 
 function addSphereCollider(sceneObject, world, sceneActorArray) {
-  sceneObject.shape = new CANNON.Sphere(1);
-  sceneObject.mass = 10;
+  sceneObject.shape = new CANNON.Sphere(sceneObject.radius);
+  sceneObject.mass = 30;
   sceneObject.body = new CANNON.Body({
-    mass: 10,
+    mass: 30,
+    material: sceneObject.cannonMaterial,
   });
 
   sceneObject.body.addShape(sceneObject.shape);
@@ -113,13 +79,15 @@ function addSphereCollider(sceneObject, world, sceneActorArray) {
   sceneObject.body.position.copy(sceneObject.mesh.position);
   sceneObject.body.quaternion.copy(sceneObject.mesh.quaternion);
 
+  sceneObject.body.updateAABB();
+
   world.addBody(sceneObject.body);
   sceneActorArray.push(sceneObject);
 }
 
 function updatePhysics(sceneObjectArray, sceneActorArray, world, deltaTime) {
   // Step the physics world
-  world.step(1 / 60, deltaTime, 10);
+  world.step(1 / 60, deltaTime, 15);
   // Copy coordinates from Cannon.js to Three.js
   sceneObjectArray.forEach((object) => {
     object.mesh.position.copy(object.body.position);
