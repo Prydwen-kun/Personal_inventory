@@ -8,10 +8,8 @@ class player {
     this.name = name;
     this.controls = new PointerLockControls(camera, domElement);
     this.controls.pointerSpeed = 1; //pointer Speed Option to set
-
     // this.controls.maxPolarAngle = Math.PI - 0.01;
     // this.controls.minPolarAngle = 0 + 0.01;
-
     this.renderCanvas = domElement;
     this.camera = camera;
     this.clock = clock;
@@ -119,7 +117,6 @@ class player {
 
     //direction debug + normalizedDirection update
 
-
     //change body rotation
     this.eulerAngleYXZ = new THREE.Euler().setFromQuaternion(
       this.camera.quaternion,
@@ -145,15 +142,6 @@ class player {
         this.body.position.z
       )
     );
-
-    this.camera.getWorldDirection(this.direction);
-    this.normalizedDirection = new THREE.Vector3(
-      this.direction.x,
-      0,
-      this.direction.z
-    );
-    // console.log("PC direction :", this.direction);
-
 
     ////UPDATE RAYGROUP//////
     this.rayGroup.updateRayGroup(
@@ -230,14 +218,12 @@ class player {
 
     if (typeof this.body !== undefined) {
       //////JUMP//////change this to velocity
-
       if (this.rayGroup.bottomRay.hasHit) {
         this.touchFloor = true;
       }
 
       if (this.keymap["Space"] == true) {
         if (!this.jumping && this.touchFloor && !this.pressedSpace) {
-
           //add vertical impulse
           this.body.applyImpulse(new CANNON.Vec3(0, this.jumpingPower, 0));
           this.jumping = true;
