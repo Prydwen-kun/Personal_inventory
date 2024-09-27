@@ -1,0 +1,7 @@
+# ninja log v5
+4	1056	7491324756375998	CMakeFiles/SteganoC++.dir/SteganoC++.cpp.obj	db5d11cc5e28e705
+1058	1346	7491324759088430	SteganoC++.exe	65d2c8ef5afa9fcd
+6	593	7491354671125144	CMakeFiles/SteganoC++.dir/ReadFile.cpp.obj	3d6ebf2a4f5f4281
+2	1477	7491354679964926	CMakeFiles/SteganoC++.dir/Main.cpp.obj	1a9db036df22a387
+3	1072	7491355232591146	CMakeFiles/SteganoC++.dir/Stegano.cpp.obj	84078b7808225889
+1073	1269	7491355234089820	SteganoC++.exe	9b4af14d9fcd59ad
