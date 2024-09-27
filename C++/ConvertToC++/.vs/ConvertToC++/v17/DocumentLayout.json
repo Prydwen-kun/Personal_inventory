@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\xampp\\htdocs\\Personal_inventory\\C\u002B\u002B\\ConvertToC\u002B\u002B\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F7AE8F66-3059-4906-B5C6-F10DCE19B80B}|ConvertToC\u002B\u002B.vcxproj|C:\\xampp\\htdocs\\Personal_inventory\\C\u002B\u002B\\ConvertToC\u002B\u002B\\ConvertToC\u002B\u002B.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7AE8F66-3059-4906-B5C6-F10DCE19B80B}|ConvertToC\u002B\u002B.vcxproj|solutionrelative:ConvertToC\u002B\u002B.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConvertToC\u002B\u002B.cpp",
+              "DocumentMoniker": "C:\\xampp\\htdocs\\Personal_inventory\\C\u002B\u002B\\ConvertToC\u002B\u002B\\ConvertToC\u002B\u002B.cpp",
+              "RelativeDocumentMoniker": "ConvertToC\u002B\u002B.cpp",
+              "ToolTip": "C:\\xampp\\htdocs\\Personal_inventory\\C\u002B\u002B\\ConvertToC\u002B\u002B\\ConvertToC\u002B\u002B.cpp",
+              "RelativeToolTip": "ConvertToC\u002B\u002B.cpp",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABkAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-27T14:44:40.799Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
