@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+                    <title>Science News - Mathematics, Economics, Archaeology, Fossils </title>
+            <link>https://phys.org/science-news/</link>
+            <language>en-us</language> 
+            <description>The latest science news on archaeology, fossils, mathematics, and science technology from Phys.org</description>
+                        <item>
+                <title>One-minute phone breaks could help keep students more focused in class and better in tests</title>
+                <description>Phones can be useful tools in classrooms to remind students of deadlines or encourage more exchange between students and teachers. At the same time, they can be distracting. Students report using their phones for non-academic purposes as often as 10 times a day. Thus, in many classrooms, phones are not allowed.</description>
+                <link>https://phys.org/news/2024-10-minute-students-focused-class.html</link>
+                <category>Education </category>
+                <pubDate>Wed, 02 Oct 2024 00:00:01 EDT</pubDate>
+                <guid isPermaLink="false">news646991277</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2020/1-university.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Seven years on, study reveals #MeToo's unexpected impact on consumer behavior</title>
+                <description>Seven years after actor Alyssa Milano's tweet launched the #MeToo movement into the global consciousness, attitudes towards sexual harassment and assault have shifted in many countries. A new study shows that the movement's impact doesn't stop there. The findings are published in the journal Management Science.</description>
+                <link>https://phys.org/news/2024-10-years-reveals-metoo-unexpected-impact.html</link>
+                <category>Social Sciences Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 15:21:03 EDT</pubDate>
+                <guid isPermaLink="false">news647014862</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/female-shop.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Want to solve a complex problem? Applied math can help</title>
+                <description>You can probably think of a time when you've used math to solve an everyday problem, such as calculating a tip at a restaurant or determining the square footage of a room. But what role does math play in solving complex problems such as curing a disease?</description>
+                <link>https://phys.org/news/2024-10-complex-problem-math.html</link>
+                <category>Mathematics Education </category>
+                <pubDate>Tue, 01 Oct 2024 15:10:01 EDT</pubDate>
+                <guid isPermaLink="false">news647013410</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2023/sudoku.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>State mandates requiring genocide education lack standards to guide teachers, study finds</title>
+                <description>&quot;Hotel Rwanda&quot; was a critically acclaimed and commercially successful film, but not necessarily the best way to teach high school students about a topic as fraught as genocide. Yet, without guidance on how to approach genocide throughout history, showing the movie in class may be what teachers default to in covering difficult and uncomfortable subjects.</description>
+                <link>https://phys.org/news/2024-10-state-mandates-requiring-genocide-lack.html</link>
+                <category>Social Sciences Education </category>
+                <pubDate>Tue, 01 Oct 2024 14:52:41 EDT</pubDate>
+                <guid isPermaLink="false">news647013156</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/genocide.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Authoritarian populism has weakened democracy in Brazil, says study</title>
+                <description>The rise of authoritarian populism in Brazil has weakened structures that stabilize democracy—mirroring trends in wider global society and potentially making it harder for the country to strengthen its democracy in future, a new study reveals. The findings are published in the journal Direito Público.</description>
+                <link>https://phys.org/news/2024-10-authoritarian-populism-weakened-democracy-brazil.html</link>
+                <category>Political science </category>
+                <pubDate>Tue, 01 Oct 2024 14:52:25 EDT</pubDate>
+                <guid isPermaLink="false">news647013141</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2020/brazil.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Being 'mindful' about your bank account can bring more than peace of mind: A researcher explains the payoff</title>
+                <description>Mindfulness, the meditation practice that brings one's attention to present experiences, is gaining traction in the business world.</description>
+                <link>https://phys.org/news/2024-10-mindful-bank-account-peace-mind.html</link>
+                <category>Social Sciences Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 14:37:04 EDT</pubDate>
+                <guid isPermaLink="false">news647012221</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2023/money.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>'Iyashikei' healing manga comforts readers with attention to small joys</title>
+                <description>Iyashikei is a Japanese genre that, according to Japanese studies scholar Paul Roquet, tells stories that are designed to comfort and heal weary readers by creating an aesthetic of calm. In order to achieve this, as Roquet articulates, these stories are presented as tales with little or no plot conflict.</description>
+                <link>https://phys.org/news/2024-10-iyashikei-manga-comforts-readers-attention.html</link>
+                <category>Social Sciences </category>
+                <pubDate>Tue, 01 Oct 2024 14:17:03 EDT</pubDate>
+                <guid isPermaLink="false">news647011021</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/manga.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Western media outlets are trying to fix their coverage of Africa. Is it time African media did the same?</title>
+                <description>Quick question: what do these titles have in common? A Dark Continent Seeking Light; Sure, Ebola is Bad. Africa has Worse, or; Magic and Cannibalism in the African Jungle. You guessed it—they're all about Africa. But the most correct answer is they're all headlines that have appeared in the prestigious New York Times newspaper.</description>
+                <link>https://phys.org/news/2024-10-western-media-outlets-coverage-africa.html</link>
+                <category>Social Sciences Political science </category>
+                <pubDate>Tue, 01 Oct 2024 14:14:04 EDT</pubDate>
+                <guid isPermaLink="false">news647010841</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2023/news-media.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Q&amp;A: UN security council needs major changes—permanent seats for African countries is just one</title>
+                <description>Recently, the US ambassador to the United Nations announced America's support for the creation of two new permanent UN security council seats for African states. Gary Wilson, a scholar of international law and relations—specifically issues related to the United Nations—argues that although Africa's time may have come, there are still hurdles to overcome.</description>
+                <link>https://phys.org/news/2024-10-qa-council-major-permanent-seats.html</link>
+                <category>Political science </category>
+                <pubDate>Tue, 01 Oct 2024 14:12:04 EDT</pubDate>
+                <guid isPermaLink="false">news647010721</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/united-nations.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>New report shows wildlife criminals in UK 'getting away with it'</title>
+                <description>A new study led by an Anglia Ruskin University (ARU) expert has revealed alarming shortcomings in the UK's efforts to prosecute wildlife criminals.</description>
+                <link>https://phys.org/news/2024-10-wildlife-criminals-uk.html</link>
+                <category>Political science </category>
+                <pubDate>Tue, 01 Oct 2024 13:20:02 EDT</pubDate>
+                <guid isPermaLink="false">news647007293</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/poaching-1.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>EU eyes more research to reclaim global science lead</title>
+                <description>The European Union's chief on Tuesday warned that the continent was &quot;losing ground&quot; in the global technology race and must boost research spending to &quot;turn the tide&quot;.</description>
+                <link>https://phys.org/news/2024-10-eu-eyes-reclaim-global-science.html</link>
+                <category>Other </category>
+                <pubDate>Tue, 01 Oct 2024 13:19:02 EDT</pubDate>
+                <guid isPermaLink="false">news647007537</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/cern-1.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Farmer sentiment reaches lowest levels since 2016 as income expectations weaken</title>
+                <description> In September, the Purdue University/CME Group Ag Economy Barometer recorded its lowest readings since March 2016. Declining income expectations pushed farmer sentiment down as the barometer fell 12 points to 88, and the Index of Future Expectations dropped 14 points to 94. The Index of Current Conditions also fell 7 points to 76, which nearly matched levels seen in April 2020, during the height of COVID-19 concerns for farmers. This month's survey was conducted from Sept. 9–13, 2024.</description>
+                <link>https://phys.org/news/2024-10-farmer-sentiment-lowest-income-weaken.html</link>
+                <category>Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 13:14:42 EDT</pubDate>
+                <guid isPermaLink="false">news647007278</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/farmer-sentiment-reach.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Election polling methods constantly changing and improving, expert says</title>
+                <description>With the presidential election just five weeks away, the only thing predictable about the campaign season is the daily churn of United States electorate polls.</description>
+                <link>https://phys.org/news/2024-10-election-polling-methods-constantly-expert.html</link>
+                <category>Political science </category>
+                <pubDate>Tue, 01 Oct 2024 13:14:09 EDT</pubDate>
+                <guid isPermaLink="false">news647007246</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/opinion-poll.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>The Indigenous artists keeping ancient rock art traditions alive</title>
+                <description>A new project is assessing the influence of ancient rock art on the modern art of Indigenous peoples in Central Asia and Canada, revealing its importance to reclaiming cultural identities.</description>
+                <link>https://phys.org/news/2024-10-indigenous-artists-ancient-art-traditions.html</link>
+                <category>Archaeology </category>
+                <pubDate>Tue, 01 Oct 2024 13:12:53 EDT</pubDate>
+                <guid isPermaLink="false">news647007169</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/the-indigenous-artists.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Street harassment of women in Spain: Frequency increases anxiety and lowers self-esteem, finds study</title>
+                <description>According to a study by the Department of Psychology at the UCO in which 245 women participated, 98% of women suffer street harassment and 80% of them experience it on a monthly basis. The research is published in the journal Sex Roles.</description>
+                <link>https://phys.org/news/2024-10-street-women-spain-frequency-anxiety.html</link>
+                <category>Social Sciences </category>
+                <pubDate>Tue, 01 Oct 2024 13:05:03 EDT</pubDate>
+                <guid isPermaLink="false">news647006701</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/catcall.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Public discourse promotes socially responsible market behavior, finds study</title>
+                <description>Public discourse campaigns often promote social responsibility, but do such discussions also impact our market behavior? Economists at the University of Zurich have published a new study that shows that engaging in public discourse increases socially responsible market behavior—regardless of participants' social norms and values.</description>
+                <link>https://phys.org/news/2024-10-discourse-socially-responsible-behavior.html</link>
+                <category>Social Sciences Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 12:36:03 EDT</pubDate>
+                <guid isPermaLink="false">news647004961</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2017/marketing.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Who's energy poor in the EU? It's more complex than it seems</title>
+                <description>Depending on the indicator selected, between 8% and 16% of the EU population is facing energy poverty, while most of the energy poor are not income poor, according to a comprehensive analysis of the main energy poverty indicators.</description>
+                <link>https://phys.org/news/2024-10-energy-poor-eu-complex.html</link>
+                <category>Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 12:32:04 EDT</pubDate>
+                <guid isPermaLink="false">news647004721</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/whos-energy-poor-in-th.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Women more likely to choose wine with feminine labels, study finds</title>
+                <description>To appeal to the majority of consumers, winemakers may want to pay as much attention to what's on the bottle as what's in it.</description>
+                <link>https://phys.org/news/2024-10-women-wine-feminine.html</link>
+                <category>Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 12:29:03 EDT</pubDate>
+                <guid isPermaLink="false">news647004541</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/-wine-shop.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Echoes of communism: Study finds Germans who lived in the former GDR value free speech less than West Germans</title>
+                <description>Years after the fall of the Berlin Wall, the right to freedom of expression remains less important to Germans who lived in the socialist German Democratic Republic (GDR) than to their West German counterparts. These are the findings of a study by economists from the Leibniz Institute for East and Southeast European Studies (IOS) in Regensburg and the University of Groningen.</description>
+                <link>https://phys.org/news/2024-10-echoes-communism-germans-gdr-free.html</link>
+                <category>Political science </category>
+                <pubDate>Tue, 01 Oct 2024 12:28:04 EDT</pubDate>
+                <guid isPermaLink="false">news647004482</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/berlin-wall.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Toward inclusive math education: Insights from Black students may support more effective teaching strategies</title>
+                <description>A recent study finds that Black high-school students tend not to believe that their teachers are adequately prepared to teach them math in appropriate ways, have negative perceptions of their math ability, and lack awareness about the intersection between math and their desired careers.</description>
+                <link>https://phys.org/news/2024-10-inclusive-math-insights-black-students.html</link>
+                <category>Education </category>
+                <pubDate>Tue, 01 Oct 2024 12:20:03 EDT</pubDate>
+                <guid isPermaLink="false">news647004001</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/high-school-students.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>School 'social structures' perpetuate inequalities for children with disabilities, study says</title>
+                <description>Social structures in schools perpetuate inequalities against children with developmental disabilities, a new study says.</description>
+                <link>https://phys.org/news/2024-10-school-social-perpetuate-inequalities-children.html</link>
+                <category>Social Sciences Education </category>
+                <pubDate>Tue, 01 Oct 2024 12:09:14 EDT</pubDate>
+                <guid isPermaLink="false">news647003345</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2021/primaryschoo.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Archaeologists develop system to produce unique names for Stone Age skeletons and mummies</title>
+                <description>When we talk about the Stone Age today, we usually focus on people and their personal stories—like the well-known glacier man &quot;Ötzi.&quot; This is possible because the latest scientific methods in archaeology provide insights that literally make human remains come to life again.</description>
+                <link>https://phys.org/news/2024-10-archaeologists-unique-stone-age-skeletons.html</link>
+                <category>Archaeology </category>
+                <pubDate>Tue, 01 Oct 2024 11:58:48 EDT</pubDate>
+                <guid isPermaLink="false">news647002723</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/old-skeleton.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Gen Z supports sustainability—and fuels ultra-fast fashion: How does that work?</title>
+                <description>Generation Z has been called &quot;the sustainability generation.&quot;</description>
+                <link>https://phys.org/news/2024-10-gen-sustainability-fuels-ultra-fast.html</link>
+                <category>Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 11:50:01 EDT</pubDate>
+                <guid isPermaLink="false">news646999759</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/shop-online.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Why pay tax? African study finds trust in government is key</title>
+                <description>Taxes are important. They're a primary way in which governments fund essential services like health care, education, infrastructure and social protection programs. They are vital to the economic development of countries.</description>
+                <link>https://phys.org/news/2024-10-pay-tax-african-key.html</link>
+                <category>Social Sciences Political science </category>
+                <pubDate>Tue, 01 Oct 2024 11:20:01 EDT</pubDate>
+                <guid isPermaLink="false">news646999817</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2020/kenya.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Why it's becoming harder to get super-rich in China</title>
+                <description>&quot;To get rich is glorious.&quot; In the 1980s, this was one of the most famous sayings—unofficially, at least—to describe the ethos at the dawn of the opening-up period in post-Maoist China.</description>
+                <link>https://phys.org/news/2024-10-harder-super-rich-china.html</link>
+                <category>Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 11:10:41 EDT</pubDate>
+                <guid isPermaLink="false">news646999837</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/yuan.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>'School is boring': What it means when your child says they're bored in class, and how you can help</title>
+                <description>Have you ever asked your child how school was today, only to be told it was &quot;boring?&quot;</description>
+                <link>https://phys.org/news/2024-10-school-child-theyre-class.html</link>
+                <category>Education </category>
+                <pubDate>Tue, 01 Oct 2024 11:10:01 EDT</pubDate>
+                <guid isPermaLink="false">news646999649</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2022/school-class.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Why being like your boss still matters—especially if you share political views</title>
+                <description>How would you try to make a good impression at a job interview? Beyond the obvious (making eye contact, smiling, and attempting to appear knowledgeable and competent), what other tactics might you deploy?</description>
+                <link>https://phys.org/news/2024-10-boss-political-views.html</link>
+                <category>Social Sciences Economics &amp; Business </category>
+                <pubDate>Tue, 01 Oct 2024 11:06:45 EDT</pubDate>
+                <guid isPermaLink="false">news646999598</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2023/boss-1.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Intergeneration research shows immigrants to the US assimilate as well now as they did over a century ago</title>
+                <description>Children of immigrants to the United States typically incorporate themselves into US economic and cultural life, and this pattern of assimilation has not markedly changed in over a century. Today, one in seven US residents was born abroad, rates similar to those seen in the late nineteenth century.</description>
+                <link>https://phys.org/news/2024-10-intergeneration-immigrants-assimilate-century.html</link>
+                <category>Social Sciences Political science </category>
+                <pubDate>Tue, 01 Oct 2024 10:26:02 EDT</pubDate>
+                <guid isPermaLink="false">news646997161</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2024/intergeneration-resear.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Social media experiment shows prosocial nudges fail to reduce online hate</title>
+                <description>In a pre-registered experiment, Tatiana Celadin and colleagues compared the effects of seven &quot;nudges,&quot; messages designed to promote prosocial behaviors: reminding posters of descriptive norms, injunctive norms, or personal norms; cooling down negative emotions; stimulating deliberation or empathy; and highlighting reputation.</description>
+                <link>https://phys.org/news/2024-10-social-media-prosocial-nudges-online.html</link>
+                <category>Social Sciences Political science </category>
+                <pubDate>Tue, 01 Oct 2024 10:11:30 EDT</pubDate>
+                <guid isPermaLink="false">news646996286</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2022/social-media-2.jpg" width="90" height="90" />            </item>
+                        <item>
+                <title>Political polarization between Americans stays consistent before and after elections, study finds</title>
+                <description>During election season, when campaign ads dominate TV, political billboards dot highways, and canvassers knock on doors, the implication is that political tensions are at their highest and will surely drop once elections are over.</description>
+                <link>https://phys.org/news/2024-10-political-polarization-americans-stays-elections.html</link>
+                <category>Political science </category>
+                <pubDate>Tue, 01 Oct 2024 09:35:03 EDT</pubDate>
+                <guid isPermaLink="false">news646994101</guid>
+                <media:thumbnail url="https://scx1.b-cdn.net/csz/news/tmb/2018/elections.jpg" width="90" height="90" />            </item>
+                    </channel>
+</rss>

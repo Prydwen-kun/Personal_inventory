@@ -2,12 +2,12 @@
 //
 
 
-#include <cstdlib>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
 #include <bitset>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 #define readbin std::ios::binary | std::ios::in
 #define writebin std::ios::binary | std::ios::out
@@ -44,9 +44,9 @@ int main()
 
 		bit[i] = bitset<8>(buffer[i]).to_string();
 		cout << "|";
-		cout.write(bit[i].c_str(), size);
+		cout << bit[i];
 		cout << "|";
-		if (i % 11 == 0) {
+		if (i % 19 == 0) {
 			cout << endl;
 		}
 	}
