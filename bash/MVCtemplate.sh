@@ -32,6 +32,7 @@ class Template
 
     //GETTERS AND SETTERS
   }
+}
 ?>
 EOF
 }
