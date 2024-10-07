@@ -26,7 +26,9 @@ class Template
       }
     }
 
-    //GETTERS AND SETTERS
-  }
+   
+  } 
+  //GETTERS AND SETTERS
+
 }
 ?>

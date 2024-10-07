@@ -1,7 +1,7 @@
 #!/bin/bash
 
 classTemplate() {
-    cat <<EOF >"$1/classTemplate.php"
+    cat <<EOF >"$1/Template.php"
 <?php
 class Template
 {
@@ -30,8 +30,10 @@ class Template
       }
     }
 
-    //GETTERS AND SETTERS
-  }
+   
+  } 
+  //GETTERS AND SETTERS
+
 }
 ?>
 EOF
@@ -58,7 +60,7 @@ EOF
 }
 
 controllerTemplate() {
-    cat <<EOF >"$1/controllerTemplate.php"
+    cat <<EOF >"$1/TemplateController.php"
 <?php 
 
   class TemplateController 
@@ -207,7 +209,7 @@ EOF
 }
 
 templateModel() {
-    cat <<EOF >"$1/templateModel.php"
+    cat <<EOF >"$1/TemplateModel.php"
 <?php
 class TemplateModel extends CoreModel {
     // Model-specific functionality goes here
@@ -260,7 +262,7 @@ EOF
 }
 
 viewsTemplate() {
-    cat <<EOF >"$1/viewsTemplate.php"
+    cat <<EOF >"$1/TemplateView.php"
 <?php include 'partials/head.php'; ?>
 
  <div class="section">
@@ -374,7 +376,7 @@ else
 
         case $(basename "$dir") in
         "class")
-            touch "$dir/classTemplate.php"
+            touch "$dir/Template.php"
             classTemplate "$dir"
             ;;
         "config")
@@ -382,7 +384,7 @@ else
             configWrite "$dir"
             ;;
         "controllers")
-            touch "$dir/controllerTemplate.php"
+            touch "$dir/TemplateController.php"
             controllerTemplate "$dir"
             ;;
         "lib")
@@ -394,7 +396,7 @@ else
             ;;
         "models")
             touch "$dir/CoreModel.php"
-            touch "$dir/templateModel.php"
+            touch "$dir/TemplateModel.php"
             CoreModel "$dir"
             templateModel "$dir"
             ;;
@@ -402,7 +404,7 @@ else
             mkdir -p "$dir/partials"
             touch "$dir/partials/foot.php"
             touch "$dir/partials/head.php"
-            touch "$dir/viewsTemplate.php"
+            touch "$dir/TemplateView.php"
             foot "$dir"
             head "$dir"
             viewsTemplate "$dir"
